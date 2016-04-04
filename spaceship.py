@@ -82,6 +82,36 @@ class Spaceship:
             print self.receipts
 
 def playGame():
-    ship = Spaceship()
+    game = Spaceship()
 
-playGame
+    print "All Aboard the Planet Express!"
+    print "What would you like to do?"
+
+    stop = False
+
+    while stop != True:
+        action = raw_input("What would you like to do aboard the ship? You can type 'eat', 'drink', 'accounting', 'deliver', or 'steal'. Or you can click 'bye' to end this pain!  ")
+
+        if action == "bye":
+            stop = True
+            print "Laterz."
+        else:
+            if action == "eat":
+                game.eat()
+                print "You ate something! Your belly is fuller, but it required work!"
+                print game.total
+            elif action == "drink":
+                game.drink()
+                print "You drank something! You're less thirsty, but it required some work!"
+            elif action == "accounting":
+                game.account()
+                print game.total
+                print "You did some accounting! Boring! That was a lot of work!"
+            elif action == "deliver":
+                print "You did some work for once! That required some work!"
+            elif action == "steal":
+                print "You stole some stuff! That's awkward."
+            else:
+                "I don't understand that command! Try again!"
+
+playGame()
