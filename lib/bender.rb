@@ -1,9 +1,10 @@
-class Bender
+module PlanetExpress
+  class Bender
 
-  attr_accessor :name, :thirst
-
-  def initialize
-    @name = "Bender"
-    @horde = 50
+    def initialize(game)
+      @name = "Bender"
+      @horde = 50
+      @game = game
+    end
   end
 end

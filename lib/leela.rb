@@ -1,9 +1,11 @@
-class Leela
+module PlanetExpress
+  class Leela
 
-  attr_accessor :name, :work
+    attr_accessor :name, :work
 
-  def initialize
-    @name = "Leela"
-    @work = 50
+    def initialize
+      @name = "Leela"
+      @work = 50
+    end
   end
 end

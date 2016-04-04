@@ -1,9 +1,11 @@
-class Zoidberg
+module PlanetExpress
+  class Zoidberg
 
-  attr_accessor :name, :hunger
+    attr_accessor :name, :hunger
 
-  def initialize
-    @name = "Zoidberg"
-    @hunger = 50
+    def initialize
+      @name = "Zoidberg"
+      @hunger = 50
+    end
   end
 end

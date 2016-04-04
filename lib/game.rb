@@ -3,7 +3,7 @@ module PlanetExpress
     attr_accessor :bender, :fry, :hermes, :leela, :zoidberg
 
     def initialize
-      @bender = Game::Bender.new(self)
+      @bender = Game::Bender.new
       @fry = Game::Fry.new(self)
       @hermes = Game::Hermes.new(self)
       @leela = Game::Leela.new(self)

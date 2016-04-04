@@ -1,9 +1,11 @@
-class Hermes
+module PlanetExpress
+  class Hermes
 
-  attr_accessor :name, :receipts
+    attr_accessor :name, :receipts
 
-  def initialize
-    @name = "Hermes"
-    @receipts = 50
+    def initialize
+      @name = "Hermes"
+      @receipts = 50
+    end
   end
 end

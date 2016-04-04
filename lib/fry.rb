@@ -1,9 +1,11 @@
-class Fry
+module PlanetExpress
+  class Fry
 
-  attr_accessor :name, :thirst
+    attr_accessor :name, :thirst
 
-  def initialize
-    @name = "Fry"
-    @thirst = 50
+    def initialize
+      @name = "Fry"
+      @thirst = 50
+    end
   end
 end
