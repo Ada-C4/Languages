@@ -2,10 +2,12 @@ package PlanetExpress;
 
 public class Fry extends Member {
 	
-	public String name;
+	int thirst;
 
-	public Fry(String name) {
-		super(name);
+	public Fry() {
+		super("Fry");
+		
+		this.thirst = 50;
 	}
 
 }
