@@ -44,7 +44,7 @@ class Crew
 
   def check
     # if score is too low, end game
-    if @score < 0
+    if @score <= 0
       @stable = false
       return false
     else
