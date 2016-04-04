@@ -5,6 +5,7 @@ def get_match(county):
             if county + " County" == record[193:238].strip():
                 match = record
                 return match
+    data_file.close()            
     return None
 
 def print_county_info(record):
