@@ -35,13 +35,17 @@ class Spaceship:
     # def score(self):
 
     def stable(self):
-        if score < 30:
-            return false
+        if any( [self.thirst > 99, self.work > 99, self.horde < 1, self.hunger > 99, self.receipts < 1] ):
+            return False
         else:
-            return true
+            return True
 
     def check(self):
         self.alert()
+        if self.stable:
+            return True
+        else:
+            return False
             # It also needs to print out a warning for each value if it is
             # getting too high (or too low), such as if Hermes has too many
             # receipts (but not enough to crash the company). If it was enough
