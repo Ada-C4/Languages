@@ -20,6 +20,7 @@ def print_child_poverty_info(state)
       end
     end
 
+    # get max and min
     file.each_with_index do |record, i|
       child_pov_percentage = record[76..79].to_f
 
