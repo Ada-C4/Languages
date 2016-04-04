@@ -7,6 +7,7 @@ class Spaceship:
         self.hunger = 50
         self.receipts = 50
         self.stable = True
+        self.total = 0
 
     def drink(self):
         self.thirst -= 10
@@ -26,13 +27,17 @@ class Spaceship:
 
     def account(self):
         self.receipts -= 10
-        self.horder -= 10
+        self.horde -= 10
 
         # the lower the thirst, work, and hunger, and the higher the horde
         # and receipts, the better the score.
         # as thirst, work, and hunger decrease
         # and as horde and receipts increase, the score increases
-    # def score(self):
+        # if thirst decreases, score increases
+    def score(self):
+        if self.thirst < 30:
+            self.total += 1
+            return self.total
 
     def stable(self):
         if any( [self.thirst > 99, self.work > 99, self.horde < 1, self.hunger > 99, self.receipts < 1] ):
@@ -46,11 +51,7 @@ class Spaceship:
             return True
         else:
             return False
-            # It also needs to print out a warning for each value if it is
-            # getting too high (or too low), such as if Hermes has too many
-            # receipts (but not enough to crash the company). If it was enough
-            # to crash the company (perhaps more than 100), then the function
-            # would return false.
+            print "You lose! Try again!"
 
     # how to get this to string interpolate which value is greater than 90.
     def alert(self):
