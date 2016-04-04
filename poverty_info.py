@@ -1,14 +1,14 @@
 STATE_FILES = {"Washington": "povWA.txt", "South Dakota": "povSD.txt"}
 
 def print_child_poverty_info(state):
-    file = open(STATE_FILES[state], 'r')
+    data_file = open(STATE_FILES[state], 'r')
     current_min = None
     current_max = None
     min_county_record = None
     max_county_record = None
 
     # get the values to compare against
-    for i, record in enumerate(file):
+    for i, record in enumerate(data_file):
         if i == 1:
             current_min = float(record[76:80])
             min_county_record = record
@@ -17,7 +17,7 @@ def print_child_poverty_info(state):
             break
 
     # get max and min
-    for i, record in enumerate(file):
+    for i, record in enumerate(data_file):
         child_pov_percentage = float(record[76:80])
 
         # change minimum as needed
@@ -33,6 +33,8 @@ def print_child_poverty_info(state):
     print "In {0}:".format(state)
     print "The county with the lowest percentage of children in poverty is {0}. In that county, {1} children ({2}%) are in poverty. The median household income is ${3}.".format(min_county_record[193:239].strip(), min_county_record[49:57].strip(), min_county_record[76:80].strip(), min_county_record[133:139].strip())
     print "The county with the highest percentage of children in poverty is {0}. In that county, {1} children ({2}%) are in poverty. The median household income is ${3}.".format(max_county_record[193:239].strip(), max_county_record[49:57].strip(), max_county_record[76:80].strip(), max_county_record[133:139].strip())
+
+    data_file.close()
 
 print_child_poverty_info("Washington")
 print_child_poverty_info("South Dakota")
