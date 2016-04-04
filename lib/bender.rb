@@ -6,3 +6,4 @@ class Bender
     @name = "Bender"
     @horde = 50
   end
+end

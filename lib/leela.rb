@@ -6,3 +6,4 @@ class Leela
     @name = "Leela"
     @work = 50
   end
+end

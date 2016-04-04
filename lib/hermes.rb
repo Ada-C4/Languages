@@ -6,3 +6,4 @@ class Hermes
     @name = "Hermes"
     @receipts = 50
   end
+end

@@ -6,3 +6,4 @@ class Fry
     @name = "Fry"
     @thirst = 50
   end
+end

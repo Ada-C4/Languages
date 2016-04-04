@@ -6,3 +6,4 @@ class Zoidberg
     @name = "Zoidberg"
     @hunger = 50
   end
+end
