@@ -8,6 +8,7 @@ class Crew
     @hunger = 50
     @receipts = 50
     @stable = true
+    @score = 50
   end
 
   def drink
@@ -36,11 +37,14 @@ class Crew
   end
 
   def score
+    if @thirst >= 100 || @work >= 100 || @horde <= 0 || @hunger >= 100 || @receipts <= 0
+      @score = 0
+    end
   end
 
   def check
-    # if score is too low, end game (need to determine proper score)
-    if score < 100
+    # if score is too low, end game
+    if @score < 0
       @stable = false
       return false
     else
