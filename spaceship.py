@@ -29,15 +29,28 @@ class Spaceship:
         self.receipts -= 10
         self.horde -= 10
 
-        # the lower the thirst, work, and hunger, and the higher the horde
-        # and receipts, the better the score.
-        # as thirst, work, and hunger decrease
-        # and as horde and receipts increase, the score increases
-        # if thirst decreases, score increases
     def score(self):
-        if self.thirst < 30:
+        if self.thirst < 60:
+            self.total += 7
+        elif self.thirst >= 60:
+            self.total -= 7
+
+        if self.work < 70:
             self.total += 1
-            return self.total
+        elif self.work >= 70:
+            self.total -= 1
+
+        if self.horde > 80:
+            self.total += 5
+        elif self.horde <= 80:
+            self.total -= 1
+
+        if self.receipts > 70:
+            self.total += 3
+        elif self.receipts <= 70:
+            self.total -= 3
+
+        return self.total
 
     def stable(self):
         if any( [self.thirst > 99, self.work > 99, self.horde < 1, self.hunger > 99, self.receipts < 1] ):
