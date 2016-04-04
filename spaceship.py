@@ -50,5 +50,18 @@ class Spaceship:
 
     # how to get this to string interpolate which value is greater than 90.
     def alert(self):
-        if any( [self.thirst > 90, self.work > 90, self.horde > 90, self.hunger > 90, self.receipts > 90] ):
-            print "Uh oh! Somethings off! Check the status!"
+        if any( [self.thirst > 60, self.work > 60, self.horde > 60, self.hunger > 60, self.receipts > 60] ):
+            print "Uh oh! Your ship is about to sink. Here's your current status of the boat. Remember, if any value reaches 100, you're DOOMED!"
+            self.thirst
+            print "Current thirst level: "
+            print self.thirst
+            print "Current work level:"
+            print self.work
+            print "Current hording level: "
+            print self.horde
+            print "Current hunger level: "
+            print self.hunger
+            print "Current receipt level: "
+            print self.receipts
+            # put all things in an array
+            # iterate through the array and for only the values that have a value great than 90 have it print out a statement
