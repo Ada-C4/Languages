@@ -29,10 +29,10 @@ class PlanetExpress:
 
     def score(self):
         horde_score = self.horde * 1000
-        thirst_score = self.thirst * -10
-        receipts_score = self.receipts * -10
-        work_score = self.work * -10
-        hunger_score = self.hunger * -10
+        thirst_score = self.thirst * -20
+        receipts_score = self.receipts * -30
+        work_score = self.work * -20
+        hunger_score = self.hunger * -15
         return horde_score + thirst_score + receipts_score + work_score + hunger_score
 
 
@@ -54,7 +54,10 @@ class PlanetExpress:
 p = PlanetExpress()
 print "Welcome to Planet Express!"
 while p.stable:
-    action = raw_input("Type drink, deliver, steal, eat, or account to continue playing.")
+    action = raw_input("Type drink, deliver, steal, eat, or account to continue playing.\n")
+    while action.lower() != "drink" and action.lower() != "deliver" and action.lower() != "steal" and action.lower() != "eat" and action.lower() != "account":
+        print "That's not a valid choice. Try again."
+        action = raw_input("Type drink, deliver, steal, eat, or account to continue playing.\n")
     if action == "drink":
         p.drink()
     elif action == "deliver":
@@ -65,8 +68,6 @@ while p.stable:
         p.eat()
     elif action == "account":
         p.account()
-    else:
-        print "That's not a valid choice. Try again."
     print "Score: {}".format(p.score())
     if not p.check():
         print "GAME OVER"
