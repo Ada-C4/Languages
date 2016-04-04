@@ -3,11 +3,11 @@ package PlanetExpress;
 public class Crew {
 
 	Member[] members;
-	private Fry fry;
-	private Leela leela;
-	private Bender bender;
-	private Zoidberg zoidberg;
-	private Hermes hermes;
+	Fry fry;
+	Leela leela;
+	Bender bender;
+	Zoidberg zoidberg;
+	Hermes hermes;
 
 	public Crew() {
 		
