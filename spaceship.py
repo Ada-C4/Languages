@@ -66,7 +66,6 @@ class Spaceship:
             return False
             print "You lose! Try again!"
 
-    # how to get this to string interpolate which value is greater than 90.
     def alert(self):
         if any( [self.thirst > 60, self.work > 60, self.horde > 60, self.hunger > 60, self.receipts > 60] ):
             print "Uh oh! Your ship is about to sink. Here's your current status of the boat. Remember, if any value reaches 100, you're DOOMED!"
@@ -81,5 +80,8 @@ class Spaceship:
             print self.hunger
             print "Current receipt level: "
             print self.receipts
-            # put all things in an array
-            # iterate through the array and for only the values that have a value great than 90 have it print out a statement
+
+def playGame():
+    ship = Spaceship()
+
+playGame
