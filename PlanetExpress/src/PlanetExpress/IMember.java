@@ -2,6 +2,6 @@ package PlanetExpress;
 
 public interface IMember {
 	
-	public String name();
+	String name = "Crew member";
 
 }

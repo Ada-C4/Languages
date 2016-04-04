@@ -7,7 +7,7 @@ public class Program {
 		Crew crew = new Crew();
 		
 		for (Member member : crew.members) {
-			System.out.println(member.name() + " reporting for space adventures!");
+			System.out.println(member.name + " reporting for space adventures!");
 		}
 
 	}
