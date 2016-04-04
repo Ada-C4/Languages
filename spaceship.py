@@ -67,7 +67,7 @@ class Spaceship:
             print "You lose! Try again!"
 
     def alert(self):
-        if any( [self.thirst > 60, self.work > 60, self.horde > 60, self.hunger > 60, self.receipts > 60] ):
+        if any( [self.thirst > 90, self.work > 90, self.horde > 90, self.hunger > 90, self.receipts > 90] ):
             print "Uh oh! Your ship is about to sink. Here's your current status of the boat. Remember, if any value reaches 100, you're DOOMED!"
             self.thirst
             print "Current thirst level: "
@@ -86,12 +86,13 @@ def playGame():
 
     print "All Aboard the Planet Express!"
     print "What would you like to do?"
+    print "You can also type 'bye' at any time to leave this game :(."
 
     stop = False
 
     while stop != True:
-        action = raw_input("What would you like to do aboard the ship? You can type 'eat', 'drink', 'accounting', 'deliver', or 'steal'. Or you can click 'bye' to end this pain!  ")
-
+        print "What would you like to do aboard the ship?"
+        action = raw_input("You can type 'eat', 'drink', 'accounting', 'deliver', or 'steal'. ")
         if action == "bye":
             stop = True
             print "Laterz."
@@ -109,9 +110,14 @@ def playGame():
                 print "You did some accounting! Boring! That was a lot of work!"
             elif action == "deliver":
                 print "You did some work for once! That required some work!"
+                print game.total
             elif action == "steal":
+                game.steal()
                 print "You stole some stuff! That's awkward."
+                print game.total
+                print game.work
             else:
                 "I don't understand that command! Try again!"
+        game.check()
 
 playGame()
