@@ -3,9 +3,10 @@ module PlanetExpress
 
     attr_accessor :name, :receipts
 
-    def initialize
+    def initialize(game)
       @name = "Hermes"
       @receipts = 50
+      @game = game
     end
   end
 end
