@@ -12,5 +12,36 @@ public class Crew {
 		thirst -= 5;
 		work += 5;
 	}
+
+	public void deliver() {
+        work -= 5;
+        receipts += 5;
+    }
+
+    public void steal() {
+        horde += 5;
+        work += 5;
+    }
+
+    public void eat() {
+        hunger -= 5;
+        work += 5;
+    }
+
+    public void account() {
+        receipts -= 5;
+        horde -= 5;
+    }
+
+    public int score() {
+        if (thirst >= 100 || work >= 100 || horde <= 0 || hunger >= 100 || receipts <= 0) {
+            score = 0
+        }
+        return score
+    }
+
+    public boolean check() {
+        return true
+    }
 	
 }
