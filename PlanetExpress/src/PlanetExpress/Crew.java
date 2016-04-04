@@ -24,14 +24,18 @@ public class Crew {
 		return (value < 100 && value > 0) ? true : false;
 	}
 	
-	private Integer score() {
+	private int score() {
 		return (bender.hoard + hermes.receipts) - (fry.thirst + leela.work + zoidberg.hunger);
+	}
+	
+	public String status() {
+		return "Crew status\nFry's thirst: " + fry.thirst + "\nLeela's workload: " + leela.work + "\nBender's hoard: " + bender.hoard +"\nZoidberg's hunger: " + zoidberg.hunger + "\nHermes' receipts: " + hermes.receipts;
 	}
 	
 	public String drink() {
 		if (checkRange(fry.thirst) && checkRange(leela.work)) {
-			fry.thirst -= 25;
-			leela.work += 25;
+			fry.thirst -= 10;
+			leela.work += 10;
 			
 			return "Fry drinks.";
 		} else {
@@ -42,8 +46,8 @@ public class Crew {
 	
 	public String deliver() {
 		if (checkRange(leela.work) && checkRange(hermes.receipts)) {
-			leela.work -= 25;
-			hermes.receipts += 25;
+			leela.work -= 10;
+			hermes.receipts += 10;
 			
 			return "Leela works it out.";
 		} else {
@@ -53,8 +57,8 @@ public class Crew {
 	
 	public String steal() {
 		if (checkRange(bender.hoard) && checkRange(leela.work)) {
-			bender.hoard += 25;
-			leela.work += 25;
+			bender.hoard += 10;
+			leela.work += 10;
 			
 			return "Bender steals stuff.";
 		} else {
@@ -64,8 +68,8 @@ public class Crew {
 	
 	public String eat() {
 		if (checkRange(zoidberg.hunger) && checkRange(leela.work)) {
-			zoidberg.hunger -= 25;
-			leela.work += 25;
+			zoidberg.hunger -= 10;
+			leela.work += 10;
 			
 			return "Zoidberg eats.";
 		} else {
@@ -75,14 +79,13 @@ public class Crew {
 	
 	public String account() {
 		if (checkRange(hermes.receipts) && checkRange(bender.hoard)) {
-			bender.hoard -= 25;
-			hermes.receipts -= 25;
+			bender.hoard -= 10;
+			hermes.receipts -= 10;
 			
 			return "Hermes has an accounting party.";
 		} else {
 			return "Hermes is busy doing the limbo.";
 		}
 	}
-	
 	
 }

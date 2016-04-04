@@ -36,23 +36,25 @@ public class Program {
 	    	
 	    	switch (response) {
 	    	case 1: 
-	    		crew.drink();
+	    		System.out.println(crew.drink());
 	    		break;
 	    	case 2:
-	    		crew.deliver();
+	    		System.out.println(crew.deliver());
 	    		break;
 	    	case 3:
-	    		crew.steal();
+	    		System.out.println(crew.steal());
 	    		break;
 	    	case 4:
-	    		crew.eat();
+	    		System.out.println(crew.eat());
 	    		break;
 	    	case 5:
-	    		crew.account();
+	    		System.out.println(crew.account());
 	    		break;
 	    	default:
 	    		System.out.println("Bad news, that's not one of the choices.");	
 	    	}
+	    	
+	    	System.out.println(crew.status());
 	    	
 	    }
 	    
