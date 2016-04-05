@@ -56,6 +56,13 @@ public class Program {
 	    	}
 	    	
 	    	System.out.println(crew.status());
+	    	System.out.println(crew.warn());
+	    	System.out.println("Score: " + crew.score());
+	    	
+	    	if (!crew.check()) {
+	    		playAgain = false;
+	    		System.out.println("Good news, everyone! Your crew is unstable, and I'm firing you all!");
+	    	}
 	    	
 	    }
 	    

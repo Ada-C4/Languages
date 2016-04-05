@@ -8,9 +8,10 @@ public class Crew {
 	Bender bender;
 	Zoidberg zoidberg;
 	Hermes hermes;
+	int score;
 
 	public Crew() {
-		
+		this.score = 0;
 		this.fry = new Fry();
 		this.leela = new Leela();
 		this.bender = new Bender();
@@ -23,39 +24,52 @@ public class Crew {
 	private boolean checkRange(int value) {
 		return (value < 100 && value > 0) ? true : false;
 	}
-
-	private String warn() {
+	
+	public int score() {
+		int tmp = (bender.hoard + hermes.receipts) - (fry.thirst + leela.work + zoidberg.hunger) / 100;
+		if (tmp > 0) {
+			score += tmp;
+		}
+		
+		return score;
+	}
+	
+	public String warn() {
 		String warning = "";
 		
 		if (fry.thirst > 85) {
 			warning += "Fry is thirsty.\n";
-		} else if (leela.work > 85) {
+		}
+		
+		if (leela.work > 85) {
 			warning += "Leela has too much work.\n";
-		} else if (bender.hoard < 25) {
+		}
+		
+		if (bender.hoard < 25) {
 			warning += "Bender's hoard is getting pretty small.\n";
-		} else if (zoidberg.hunger > 85) {
+		} 
+		
+		if (zoidberg.hunger > 85) {
 			warning += "Zoidberg is starving!\n";
-		} else if (hermes.receipts > 85) {
+		} 
+		
+		if (hermes.receipts > 85) {
 			warning += "Hermes has too many receipts!\n";
 		}
 		
 		return warning;
 	}
 	
-	private boolean check() {
-		if (score() > 0) {
-			return true;
-		} else {
+	public boolean check() {
+		if (fry.thirst == 100 || leela.work == 100 || zoidberg.hunger == 0 || hermes.receipts == 0 || bender.hoard == 0) {
 			return false;
+		} else {
+			return true;
 		}
 	}
 	
-	private int score() {
-		return ((bender.hoard + hermes.receipts) - (fry.thirst + leela.work + zoidberg.hunger));
-	}
-	
 	public String status() {
-		return "Crew status\nFry's thirst: " + fry.thirst + "\nLeela's workload: " + leela.work + "\nBender's hoard: " + bender.hoard +"\nZoidberg's hunger: " + zoidberg.hunger + "\nHermes' receipts: " + hermes.receipts;
+		return "Crew status:\nFry's thirst: " + fry.thirst + "\nLeela's workload: " + leela.work + "\nBender's hoard: " + bender.hoard +"\nZoidberg's hunger: " + zoidberg.hunger + "\nHermes' receipts: " + hermes.receipts;
 	}
 	
 	public String drink() {
