@@ -51,7 +51,8 @@ public class Program {
 	    		System.out.println(crew.account());
 	    		break;
 	    	default:
-	    		System.out.println("Bad news, that's not one of the choices.");	
+	    		System.out.println("Bad news, that's not one of the choices.");
+	    		continue;
 	    	}
 	    	
 	    	System.out.println(crew.status());
