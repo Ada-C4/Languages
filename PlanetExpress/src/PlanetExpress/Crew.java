@@ -20,12 +20,38 @@ public class Crew {
 		
 	}
 	
-	private Boolean checkRange(int value) {
+	private boolean checkRange(int value) {
 		return (value < 100 && value > 0) ? true : false;
+	}
+
+	private String warn() {
+		String warning = "";
+		
+		if (fry.thirst > 85) {
+			warning += "Fry is thirsty.\n";
+		} else if (leela.work > 85) {
+			warning += "Leela has too much work.\n";
+		} else if (bender.hoard < 25) {
+			warning += "Bender's hoard is getting pretty small.\n";
+		} else if (zoidberg.hunger > 85) {
+			warning += "Zoidberg is starving!\n";
+		} else if (hermes.receipts > 85) {
+			warning += "Hermes has too many receipts!\n";
+		}
+		
+		return warning;
+	}
+	
+	private boolean check() {
+		if (score() > 0) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 	private int score() {
-		return (bender.hoard + hermes.receipts) - (fry.thirst + leela.work + zoidberg.hunger);
+		return ((bender.hoard + hermes.receipts) - (fry.thirst + leela.work + zoidberg.hunger));
 	}
 	
 	public String status() {
