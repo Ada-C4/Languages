@@ -1,7 +1,6 @@
 require 'pry'
 module PlanetExpress
   class Game
-    attr_accessor :bender, :fry, :hermes, :leela, :zoidberg
 
     def initialize
       @bender = PlanetExpress::Bender.new(self)
@@ -34,8 +33,8 @@ module PlanetExpress
     end
 
     def make_choice
-      i = nil
-      while i != "1" || input != "2" || input != "3" || input != "4" || input != "5"
+      check
+      while @stable == true
         i = gets.chomp
         if i == "1"
           steal
@@ -48,6 +47,7 @@ module PlanetExpress
         elsif i == "5"
           hunger
         end
+        prompt
       end
     end
 
@@ -70,30 +70,76 @@ module PlanetExpress
     def drink
       @fry.thirst -= 10
       @leela.work += 3
+
+      if @fry.thirst < 0
+        @fry.thirst = 0
+      end
+
+      if @leela.work > 100
+        @leela.work = 100
+      end
+
+      check
       make_choice
     end
 
     def deliver
       @leela.work -= 3
       @hermes.receipts += 3
+
+      if @leela.work < 0
+        @leela.work = 0
+      end
+
+      if @hermes.receipts > 100
+        @hermes.receipts = 100
+      end
+      check
       make_choice
     end
 
     def steal
       @bender.horde += 7
       @leela.work += 7
+
+      if @leela.work > 100
+        @leela.work = 100
+      end
+
+      if @bender.horde > 100
+        @bender.horde = 100
+      end
+      check
       make_choice
     end
 
     def hunger
       @zoidberg.hunger -= 12
       @leela.work = 5
+
+      if @zoidberg.hunger < 0
+        @zoidberg.hunger = 0
+      end
+
+      if @leela.work > 100
+        @leela.work = 100
+      end
+      check
       make_choice
     end
 
     def account
       @hermes.receipts -= 9
       @bender.horde -= 9
+
+      if @hermes.receipts < 0
+        @hermes.receipts = 0
+      end
+
+      if @bender.horde < 0
+        @bender.horde == 0
+      end
+      check
       make_choice
     end
 
@@ -113,12 +159,12 @@ module PlanetExpress
     end
 
     def check
-      if @fry.thirst > 95 || @leela.work > 95 || @bender.horde < 5 || @zoidberg.hunger > 95 || @hermes.receipts < 5
+      if @fry.thirst > 90 || @leela.work > 90 || @bender.horde < 10 || @zoidberg.hunger > 90 || @hermes.receipts < 10
         puts "Your crew is close to failure"
         make_choice
       end
 
-      if @fry.thirst > 99 || @leela.work > 99 || @bender.horde < 1 || @zoidberg.hunger > 99 || @hermes.receipts < 1
+      if @fry.thirst == 100 || @leela.work == 100 || @bender.horde == 0 || @zoidberg.hunger == 10 || @hermes.receipts == 0
         puts "Your crew is done for"
         @stable = false
       end
