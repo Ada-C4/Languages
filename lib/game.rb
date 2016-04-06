@@ -34,16 +34,16 @@ module PlanetExpress
     def make_choice
       check
       while @stable == true
-        i = gets.chomp
-        if i == "1"
+        i = gets.chomp.to_i
+        if i == 1
           steal
-        elsif i == "2"
+        elsif i == 2
           drink
-        elsif i == "3"
+        elsif i == 3
           account
-        elsif i == "4"
+        elsif i == 4
           deliver
-        elsif i == "5"
+        elsif i == 5
           hunger
         end
         prompt
@@ -79,7 +79,7 @@ module PlanetExpress
       end
 
       check
-      make_choice
+      prompt
     end
 
     def deliver
@@ -94,7 +94,7 @@ module PlanetExpress
         @hermes.receipts = 100
       end
       check
-      make_choice
+      prompt
     end
 
     def steal
@@ -109,7 +109,7 @@ module PlanetExpress
         @bender.horde = 100
       end
       check
-      make_choice
+      prompt
     end
 
     def hunger
@@ -124,7 +124,7 @@ module PlanetExpress
         @leela.work = 100
       end
       check
-      make_choice
+      prompt
     end
 
     def account
@@ -139,7 +139,7 @@ module PlanetExpress
         @bender.horde == 0
       end
       check
-      make_choice
+      prompt
     end
 
     def prompt
@@ -147,11 +147,11 @@ module PlanetExpress
       puts "Its crew: Bender, Fry, Hermes, Leela, and Zoidberg are at your command."
       puts "Your direction is crucial to their survival."
       puts "If Bender's horde isn't big enough, Fry is too thirsty, Hermes has too few receipts, Leela has too much work, or Zoidberg is too hungry, the mission will be over."
-      puts "Enter 1 to let Bender steal 7 things to add to his horde."
-      puts "Enter 2 to give Fry a can of Slurm to reduce his thirst by 10."
-      puts "Enter 3 to give Hermes 9 receipts to keep track of Planet Express expenses."
-      puts "Enter 4 to give 3 unfulfilled work orders to Leela."
-      puts "Enter 5 to give Zoidberg a fish to eat to reduce his hunger by 12."
+      puts "Enter 1 to let Bender steal 7 things to add to his horde and create 7 more work orders for Leela."
+      puts "Enter 2 to give Fry a can of Slurm to reduce his thirst by 10 and create 3 more work orders for Leela."
+      puts "Enter 3 to give Hermes 9 receipts to keep track of Planet Express expenses and reduce Bender's horde by 9 items."
+      puts "Enter 4 to have Leela complete 3 work orders."
+      puts "Enter 5 to give Zoidberg a fish to eat to reduce his hunger by 12 and give Leela 5 more work orders."
       score
       puts "What is your choice?"
       make_choice
@@ -160,12 +160,15 @@ module PlanetExpress
     def check
       if @fry.thirst > 90 || @leela.work > 90 || @bender.horde < 10 || @zoidberg.hunger > 90 || @hermes.receipts < 10
         puts "Your crew is close to failure"
+        prompt
         make_choice
       end
 
       if @fry.thirst == 100 || @leela.work == 100 || @bender.horde == 0 || @zoidberg.hunger == 10 || @hermes.receipts == 0
         puts "Your crew is done for"
         @stable = false
+        prompt
+        make_choice
       end
     end
 
