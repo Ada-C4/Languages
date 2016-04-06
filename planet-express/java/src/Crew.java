@@ -35,13 +35,56 @@ public class Crew {
 
     public int score() {
         if (thirst >= 100 || work >= 100 || horde <= 0 || hunger >= 100 || receipts <= 0) {
-            score = 0
+            score = 0;
         }
-        return score
+        return score;
     }
 
     public boolean check() {
-        return true
+        if (score <= 0) {
+            stable = false;
+            return false;
+        }
+        else {
+            if (thirst >= 85) {
+                System.out.println("Fry is scary-thirsty!");
+            }
+
+            if (work >= 85) {
+                System.out.println("Leela is exhausted from all this work!");
+            }
+
+            if (horde <= 15) {
+                System.out.println("Bender is sad because he doesn't have enough treasure!");
+            }
+
+            if (hunger >= 85) {
+                System.out.println("Zoidberg is going to eat something and it's not going to be pretty!");
+            }
+
+            if (receipts <= 15) {
+                System.out.println("Hermes doesn't have enough receipts!");
+            }
+
+            return true;
+        }
+
     }
-	
+
+    public static void main (String[] args) {
+        Crew spaceship = new Crew();
+        System.out.println(spaceship.check());
+        System.out.println(spaceship.work);
+        for (int i = 0; i < 7; i++) {
+            spaceship.drink();
+        }
+        System.out.println(spaceship.work);
+        System.out.println(spaceship.check());
+        for (int j = 0; j < 3; j++) {
+            spaceship.drink();
+        }
+        System.out.println(spaceship.work);
+        System.out.println(spaceship.score());
+        System.out.println(spaceship.check());
+    }
 }
