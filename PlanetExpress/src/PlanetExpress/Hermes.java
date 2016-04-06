@@ -5,7 +5,7 @@ public class Hermes extends Member {
 	int receipts;
 
 	public Hermes() {
-		super("Hermes");
+		super("Hermes", "Hermes has an accounting party.", "Hermes is busy doing the limbo.");
 		
 		this.receipts = 50;
 	}

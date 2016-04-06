@@ -5,7 +5,7 @@ public class Zoidberg extends Member {
 	int hunger;
 
 	public Zoidberg() {
-		super("Zoidberg");
+		super("Zoidberg", "Zoidberg eats.", "Zoidberg cannot eat right now.");
 		
 		this.hunger = 50;
 	}

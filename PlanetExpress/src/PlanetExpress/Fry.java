@@ -5,7 +5,7 @@ public class Fry extends Member {
 	private int thirst;
 
 	public Fry() {
-		super("Fry");
+		super("Fry", "Fry drinks.", "Fry cannot drink any more.");
 		
 		this.thirst = 50;
 	}

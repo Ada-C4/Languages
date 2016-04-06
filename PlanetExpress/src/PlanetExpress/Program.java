@@ -36,19 +36,19 @@ public class Program {
 	    	
 	    	switch (response) {
 	    	case 1: 
-	    		System.out.println(crew.drink());
+	    		System.out.println(crew.perform(Crew.Action.DRINK));
 	    		break;
 	    	case 2:
-	    		System.out.println(crew.deliver());
+	    		System.out.println(crew.perform(Crew.Action.DELIVER));
 	    		break;
 	    	case 3:
-	    		System.out.println(crew.steal());
+	    		System.out.println(crew.perform(Crew.Action.STEAL));
 	    		break;
 	    	case 4:
-	    		System.out.println(crew.eat());
+	    		System.out.println(crew.perform(Crew.Action.EAT));
 	    		break;
 	    	case 5:
-	    		System.out.println(crew.account());
+	    		System.out.println(crew.perform(Crew.Action.ACCOUNT));
 	    		break;
 	    	default:
 	    		System.out.println("Bad news, that's not one of the choices.");

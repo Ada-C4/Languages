@@ -5,7 +5,7 @@ public class Bender extends Member {
 	int hoard;
 
 	public Bender() {
-		super("Bender");
+		super("Bender", "Bender steals stuff.", "Bender cannot steal any more. Chill!");
 		
 		this.hoard = 50;
 	}

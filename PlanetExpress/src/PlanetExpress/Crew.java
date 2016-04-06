@@ -1,6 +1,10 @@
 package PlanetExpress;
 
 public class Crew {
+	
+	public enum Action {
+		DRINK, DELIVER, STEAL, EAT, ACCOUNT
+	}
 
 	Member[] members;
 	Fry fry;
@@ -72,61 +76,43 @@ public class Crew {
 		return "Crew status:\nFry's thirst: " + fry.thirst() + "\nLeela's workload: " + leela.work() + "\nBender's hoard: " + bender.hoard() +"\nZoidberg's hunger: " + zoidberg.hunger() + "\nHermes' receipts: " + hermes.receipts();
 	}
 	
-	public String drink() {
-		// dry this up using enumerations as parameter into one "action" method
-		if (checkRange(fry.thirst()) && checkRange(leela.work)) {
+	public String perform(Action action) {
+		boolean checkStatus = false;
+		Member crewMember = null;
+		
+		switch (action) {
+		case DRINK:
+			crewMember = fry;
 			fry.drink();
 			leela.work += 10;
-			
-			return "Fry drinks.";
-		} else {
-			return "Fry cannot drink any more.";
-		}
-		
-	}
-	
-	public String deliver() {
-		if (checkRange(leela.work) && checkRange(hermes.receipts())) {
+			checkStatus = checkRange(fry.thirst()) && checkRange(leela.work());
+			break;
+		case DELIVER:
+			crewMember = leela;
 			leela.deliver();
 			hermes.receipts += 10;
-			
-			return "Leela works it out.";
-		} else {
-			return "Give Leela a break.";
-		}
-	}
-	
-	public String steal() {
-		if (checkRange(bender.hoard) && checkRange(leela.work)) {
+			checkStatus = checkRange(leela.work()) && checkRange(hermes.receipts());
+			break;
+		case STEAL:
+			crewMember = bender;
 			bender.steal();
 			leela.work += 10;
-			
-			return "Bender steals stuff.";
-		} else {
-			return "Bender cannot steal any more. Chill!";
-		}
-	}
-	
-	public String eat() {
-		if (checkRange(zoidberg.hunger) && checkRange(leela.work)) {
+			checkStatus = checkRange(bender.hoard()) && checkRange(leela.work());
+			break;
+		case EAT:
+			crewMember = zoidberg;
 			zoidberg.eat();
 			leela.work += 10;
-			
-			return "Zoidberg eats.";
-		} else {
-			return "Zoidberg cannot eat right now.";
-		}
-	}
-	
-	public String account() {
-		if (checkRange(hermes.receipts()) && checkRange(bender.hoard())) {
+			checkStatus = checkRange(zoidberg.hunger()) && checkRange(leela.work());
+			break;
+		case ACCOUNT:
+			crewMember = hermes;
 			hermes.account();
 			bender.hoard -= 10;
-			
-			return "Hermes has an accounting party.";
-		} else {
-			return "Hermes is busy doing the limbo.";
+			checkStatus = checkRange(hermes.receipts()) && checkRange(bender.hoard());
+			break;
 		}
-	}
-	
+		
+		return (checkStatus) ? crewMember.action : crewMember.stahp;
+	}	
 }

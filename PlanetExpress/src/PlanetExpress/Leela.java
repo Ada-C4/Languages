@@ -5,7 +5,7 @@ public class Leela extends Member {
 	int work;
 
 	public Leela() {
-		super("Leela");
+		super("Leela",  "Leela works it out.", "Give Leela a break.");
 		
 		this.work = 50;
 	}
