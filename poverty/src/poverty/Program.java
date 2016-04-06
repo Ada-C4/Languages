@@ -18,12 +18,13 @@ public class Program {
 		try {
 			Scanner scanner = new Scanner(washington);
 			int lineNum = 0;
-			String line;
+			String line; 
 			while (scanner.hasNextLine()) {
 				line = scanner.nextLine();
 				lineNum++;
 				
-				if(lineNum == 2) { 
+				if(line.toLowerCase().contains(county.toLowerCase())) { 
+					System.out.println("Line num: " + lineNum);
 		            System.out.println("Line contents: " + line);
 		        }
 			}
