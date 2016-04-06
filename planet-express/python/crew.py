@@ -7,38 +7,39 @@ class Crew:
         self.horde = 50
         self.hunger = 50
         self.receipts = 50
-        self.stable = true
+        self.stable = True
         self.score = 50
 
-    def drink:
+    def drink(self):
         self.thirst -= 5
         self.work += 5
 
-    def deliver:
+    def deliver(self):
         self.work -= 5
         self.receipts += 5
 
-    def steal:
+    def steal(self):
         self.horde += 5
         self.work += 5
 
-    def eat:
+    def eat(self):
         self.hunger -= 5
         self.work += 5
 
-    def account:
+    def account(self):
         self.receipts -= 5
         self.horde -= 5
 
-    def score:
+    def current_score(self):
         if self.thirst >= 100 or self.work >= 100 or self.horde <= 0 or self.hunger >= 100 or self.receipts <= 0:
             self.score = 0
+        return self.score
 
-    def check:
+    def check(self):
         # if score is too low, end the game
         if self.score <= 0:
-            self.stable = false
-            return true
+            self.stable = False
+            return False
         else:
             # check to see if you need to print warnings
             if self.thirst >= 85:
@@ -56,4 +57,4 @@ class Crew:
             if self.receipts <= 15:
                 print "Hermes doesn't have enough receipts!"
 
-            return false
+            return True
