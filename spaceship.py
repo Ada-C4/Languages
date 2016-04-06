@@ -29,27 +29,42 @@ class Spaceship:
         self.receipts -= 10
         self.horde -= 10
 
-    def score(self):
-        if self.thirst < 60:
+    def thirst_level(self):
+        if self.thirst < 50:
             self.total += 7
         elif self.thirst >= 60:
             self.total -= 7
 
-        if self.work < 70:
-            self.total += 1
-        elif self.work >= 70:
-            self.total -= 1
-
+    def horde_level(self):
         if self.horde > 80:
             self.total += 5
         elif self.horde <= 80:
             self.total -= 1
 
+    def work_level(self):
+        if self.work < 70:
+            self.total += 1
+        elif self.work >= 70:
+            self.total -= 1
+
+    def hunger_level(self):
+        if self.hunger > 60:
+            self.total -= 1
+        elif self.hunger <= 60:
+            self.total -= 1
+
+    def receipt_level(self):
         if self.receipts > 70:
             self.total += 3
         elif self.receipts <= 70:
             self.total -= 3
 
+    def total_score(self):
+        self.thirst_level
+        self.horde_level
+        self.work_level
+        self.receipt_level
+        self.hunger_level
         return self.total
 
     def stable(self):
@@ -68,7 +83,7 @@ class Spaceship:
 
     def alert(self):
         if any( [self.thirst > 90, self.work > 90, self.horde > 90, self.hunger > 90, self.receipts > 90] ):
-            print "Uh oh! Your ship is about to sink. Here's your current status of the boat. Remember, if any value reaches 100, you're DOOMED!"
+            print "Uh oh! Your ship is about to sink. Here's what you need to watch out for. Remember, if any value reaches 100, you're DOOMED!"
             self.thirst
             print "Current thirst level: "
             print self.thirst
@@ -86,6 +101,7 @@ def playGame():
 
     print "All Aboard the Planet Express!"
     print "What would you like to do?"
+    print "Keep track of your score by typing \"score\" at any time."
     print "You can also type 'bye' at any time to leave this game :(."
 
     stop = False
@@ -100,22 +116,20 @@ def playGame():
             if action == "eat":
                 game.eat()
                 print "You ate something! Your belly is fuller, but it required work!"
-                print game.total
             elif action == "drink":
                 game.drink()
                 print "You drank something! You're less thirsty, but it required some work!"
             elif action == "accounting":
                 game.account()
-                print game.total
                 print "You did some accounting! Boring! That was a lot of work!"
             elif action == "deliver":
                 print "You did some work for once! That required some work!"
-                print game.total
             elif action == "steal":
                 game.steal()
                 print "You stole some stuff! That's awkward."
-                print game.total
-                print game.work
+            elif action == "score":
+                print "Your total score is: "
+                print game.total_score()
             else:
                 "I don't understand that command! Try again!"
         game.check()
