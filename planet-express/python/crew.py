@@ -13,3 +13,25 @@ class Crew:
     def drink:
         self.thirst -= 5
         self.work += 5
+
+    def deliver:
+        self.work -= 5
+        self.receipts += 5
+
+    def steal:
+        self.horde += 5
+        self.work += 5
+
+    def eat:
+        self.hunger -= 5
+        self.work += 5
+
+    def account:
+        self.receipts -= 5
+        self.horde -= 5
+
+    def score:
+        if self.thirst >= 100 or self.work >= 100 or self.horde <= 0 or self.hunger >= 100 or self.receipts <= 0:
+            self.score = 0
+
+    
