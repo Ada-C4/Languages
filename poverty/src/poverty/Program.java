@@ -35,6 +35,12 @@ public class Program {
 				if(line.toLowerCase().contains(county.toLowerCase())) { 
 					System.out.println("Line num: " + lineNum);
 		            System.out.println("Line contents: " + line);
+		            
+		            //the median household income.
+		            System.out.println("County: ");
+		            System.out.println("Percentage of children in poverty: ");
+		            System.out.println("Number of children in poverty: ");
+		            System.out.println("Median household income: ");
 		            no_county = false;
 		        }
 			}
