@@ -8,6 +8,8 @@ public class County {
 	public String med_income;
 
 	public County(String line) {
+		this.name = line.substring(193, 238);
+		
 		String[] details = line.split("\\s+");
 		this.pov_percent = details[11];
 		this.pov_count = details[8];
