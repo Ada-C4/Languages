@@ -17,8 +17,16 @@ public class Program {
 		
 		try {
 			Scanner scanner = new Scanner(washington);
-		    String line = scanner.nextLine();
-		    System.out.println("Data: " + line);			
+			int lineNum = 0;
+			String line;
+			while (scanner.hasNextLine()) {
+				line = scanner.nextLine();
+				lineNum++;
+				
+				if(lineNum == 2) { 
+		            System.out.println("Line contents: " + line);
+		        }
+			}
 		    scanner.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
