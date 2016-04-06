@@ -1,8 +1,10 @@
 package poverty;
 
+import java.io.File;
+
 public class County {
 
-	public County(int line_num) {
+	public County(File file, int line_num) {
 		// TODO Auto-generated constructor stub
 	}
 

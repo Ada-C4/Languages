@@ -37,7 +37,7 @@ public class Program {
 		            System.out.println("Line contents: " + line);
 		            
 		            //the median household income.
-		            County user_county = new County(line_num);
+		            County user_county = new County(file, line_num);
 		            System.out.println("County: ");
 		            System.out.println("Percentage of children in poverty: ");
 		            System.out.println("Number of children in poverty: ");
