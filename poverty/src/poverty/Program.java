@@ -36,9 +36,9 @@ public class Program {
 		            //the median household income.
 		            County user_county = new County(line);
 		            System.out.println("County: " );
-		            System.out.println("Percentage of children in poverty: "+ user_county.pov_percent);
-		            System.out.println("Number of children in poverty: ");
-		            System.out.println("Median household income: ");
+		            System.out.println("Percentage of children in poverty: " + user_county.pov_percent);
+		            System.out.println("Number of children in poverty: " + user_county.pov_count);
+		            System.out.println("Median household income: "+ user_county.med_income);
 		            no_county = false;
 		        }
 			}
