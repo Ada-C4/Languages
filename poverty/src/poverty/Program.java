@@ -25,19 +25,16 @@ public class Program {
 			String county = scan.nextLine();
 			scan.close();
 			// find and print the line matching the county entered by user
-			int line_num = 0;
 			String line; 
 			boolean no_county = true;
 			while (scanner.hasNextLine()) {
 				line = scanner.nextLine();
-				line_num++;
 				
 				if(line.toLowerCase().contains(county.toLowerCase())) { 
-					System.out.println("Line num: " + line_num);
 		            System.out.println("Line contents: " + line);
 		            
 		            //the median household income.
-		            County user_county = new County(file, line_num);
+		            County user_county = new County(line);
 		            System.out.println("County: ");
 		            System.out.println("Percentage of children in poverty: ");
 		            System.out.println("Number of children in poverty: ");
