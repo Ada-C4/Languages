@@ -1,5 +1,7 @@
 package poverty;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Program {
@@ -10,5 +12,17 @@ public class Program {
 		String county = scan.nextLine();
 		System.out.println("County: "+ county);
 		scan.close();
+		
+		File washington = new File("washington.txt");
+		
+		try {
+			Scanner scanner = new Scanner(washington);
+		    String line = scanner.nextLine();
+		    System.out.println("Data: " + line);			
+		    scanner.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		
 	}
 }
