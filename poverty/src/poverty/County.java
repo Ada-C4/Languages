@@ -2,8 +2,11 @@ package poverty;
 
 public class County {
 
+	public String pov_percent;
+
 	public County(String line) {
-		// TODO Auto-generated constructor stub
+		String[] details = line.split("\\s+");
+		this.pov_percent = details[11];
 	}
 
 }
