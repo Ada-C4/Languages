@@ -9,6 +9,14 @@ public class Leela extends Member {
 		
 		this.work = 50;
 	}
+	
+	public void deliver() {
+		work -= 10;
+	}
+	
+	public int work() {
+		return work;
+	}
 
 
 }

@@ -1,6 +1,6 @@
 package PlanetExpress;
 
-public class Member implements IMember {
+public class Member {
 	
 	String name;
 

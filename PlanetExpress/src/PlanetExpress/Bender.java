@@ -9,6 +9,14 @@ public class Bender extends Member {
 		
 		this.hoard = 50;
 	}
+	
+	public void steal() {
+		hoard += 10;
+	}
+	
+	public int hoard() {
+		return hoard;
+	}
 
 
 }

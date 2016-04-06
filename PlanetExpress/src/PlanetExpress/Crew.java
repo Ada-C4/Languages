@@ -26,7 +26,7 @@ public class Crew {
 	}
 	
 	public int score() {
-		int tmp = (bender.hoard + hermes.receipts) - (fry.thirst + leela.work + zoidberg.hunger) / 100;
+		int tmp = (bender.hoard() + hermes.receipts()) - (fry.thirst() + leela.work() + zoidberg.hunger()) / 100;
 		if (tmp > 0) {
 			score += tmp;
 		}
@@ -37,23 +37,23 @@ public class Crew {
 	public String warn() {
 		String warning = "";
 		
-		if (fry.thirst > 85) {
+		if (fry.thirst() > 85) {
 			warning += "Fry is thirsty.\n";
 		}
 		
-		if (leela.work > 85) {
+		if (leela.work() > 85) {
 			warning += "Leela has too much work.\n";
 		}
 		
-		if (bender.hoard < 25) {
+		if (bender.hoard() < 25) {
 			warning += "Bender's hoard is getting pretty small.\n";
 		} 
 		
-		if (zoidberg.hunger > 85) {
+		if (zoidberg.hunger() > 85) {
 			warning += "Zoidberg is starving!\n";
 		} 
 		
-		if (hermes.receipts > 85) {
+		if (hermes.receipts() > 85) {
 			warning += "Hermes has too many receipts!\n";
 		}
 		
@@ -61,7 +61,7 @@ public class Crew {
 	}
 	
 	public boolean check() {
-		if (fry.thirst == 100 || leela.work == 100 || zoidberg.hunger == 0 || hermes.receipts == 0 || bender.hoard == 0) {
+		if (fry.thirst() == 100 || leela.work() == 100 || zoidberg.hunger() == 0 || hermes.receipts() == 0 || bender.hoard() == 0) {
 			return false;
 		} else {
 			return true;
@@ -69,12 +69,13 @@ public class Crew {
 	}
 	
 	public String status() {
-		return "Crew status:\nFry's thirst: " + fry.thirst + "\nLeela's workload: " + leela.work + "\nBender's hoard: " + bender.hoard +"\nZoidberg's hunger: " + zoidberg.hunger + "\nHermes' receipts: " + hermes.receipts;
+		return "Crew status:\nFry's thirst: " + fry.thirst() + "\nLeela's workload: " + leela.work() + "\nBender's hoard: " + bender.hoard() +"\nZoidberg's hunger: " + zoidberg.hunger() + "\nHermes' receipts: " + hermes.receipts();
 	}
 	
 	public String drink() {
-		if (checkRange(fry.thirst) && checkRange(leela.work)) {
-			fry.thirst -= 10;
+		// dry this up using enumerations as parameter into one "action" method
+		if (checkRange(fry.thirst()) && checkRange(leela.work)) {
+			fry.drink();
 			leela.work += 10;
 			
 			return "Fry drinks.";
@@ -85,8 +86,8 @@ public class Crew {
 	}
 	
 	public String deliver() {
-		if (checkRange(leela.work) && checkRange(hermes.receipts)) {
-			leela.work -= 10;
+		if (checkRange(leela.work) && checkRange(hermes.receipts())) {
+			leela.deliver();
 			hermes.receipts += 10;
 			
 			return "Leela works it out.";
@@ -97,7 +98,7 @@ public class Crew {
 	
 	public String steal() {
 		if (checkRange(bender.hoard) && checkRange(leela.work)) {
-			bender.hoard += 10;
+			bender.steal();
 			leela.work += 10;
 			
 			return "Bender steals stuff.";
@@ -108,7 +109,7 @@ public class Crew {
 	
 	public String eat() {
 		if (checkRange(zoidberg.hunger) && checkRange(leela.work)) {
-			zoidberg.hunger -= 10;
+			zoidberg.eat();
 			leela.work += 10;
 			
 			return "Zoidberg eats.";
@@ -118,9 +119,9 @@ public class Crew {
 	}
 	
 	public String account() {
-		if (checkRange(hermes.receipts) && checkRange(bender.hoard)) {
+		if (checkRange(hermes.receipts()) && checkRange(bender.hoard())) {
+			hermes.account();
 			bender.hoard -= 10;
-			hermes.receipts -= 10;
 			
 			return "Hermes has an accounting party.";
 		} else {

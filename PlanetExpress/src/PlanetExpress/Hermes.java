@@ -9,5 +9,13 @@ public class Hermes extends Member {
 		
 		this.receipts = 50;
 	}
+	
+	public void account() {
+		receipts -= 10;
+	}
+	
+	public int receipts() {
+		return receipts;
+	}
 
 }

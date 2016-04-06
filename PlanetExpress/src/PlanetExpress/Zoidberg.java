@@ -10,4 +10,12 @@ public class Zoidberg extends Member {
 		this.hunger = 50;
 	}
 	
+	public void eat() {
+		hunger -= 10;
+	}
+	
+	public int hunger() {
+		return hunger;
+	}
+	
 }
