@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class Program {
 	public static void main(String[] args) {	
-		System.out.println("Welcome to CA/WA Poverty Educator!");
+		System.out.println("Welcome to the CA/WA Poverty Educator!");
 		Scanner scan = new Scanner(System.in);
 		// capture user input for state 
 		System.out.print("Enter 'CA' for California or 'WA' for Washington: ");
