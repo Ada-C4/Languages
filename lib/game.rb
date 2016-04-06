@@ -1,4 +1,3 @@
-require 'pry'
 module PlanetExpress
   class Game
 
