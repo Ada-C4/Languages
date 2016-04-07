@@ -18,33 +18,37 @@ public class Program {
 		} else if(state.equals("CA")){
 			file = new File("california.txt");
 		}
-		try {
-			Scanner scanner = new Scanner(file);
-			// capture user input for county 
-			System.out.print("Enter a county in " + state + ": ");
-			String county = scan.nextLine();
-			scan.close();
-			// find and print the line matching the county entered by user
-			String line; 
-			boolean no_county = true;
-			while (scanner.hasNextLine()) {
-				line = scanner.nextLine();
-				
-				if(line.toLowerCase().contains(county.toLowerCase())) { 		            
-		            County user_county = new County(line);
-		            System.out.println("County: " + user_county.name );
-		            System.out.println("Percentage of children in poverty: " + user_county.pov_percent);
-		            System.out.println("Number of children in poverty: " + user_county.pov_count);
-		            System.out.println("Median household income: "+ user_county.med_income);
-		            no_county = false;
-		        }
+		if(file != null) {
+			try {
+				Scanner scanner = new Scanner(file);
+				// capture user input for county 
+				System.out.print("Enter a county in " + state + ": ");
+				String county = scan.nextLine();
+				scan.close();
+				// find and print the line matching the county entered by user
+				String line; 
+				boolean no_county = true;
+				while (scanner.hasNextLine()) {
+					line = scanner.nextLine();
+					
+					if(line.toLowerCase().contains(county.toLowerCase())) { 		            
+			            County user_county = new County(line);
+			            System.out.println("County: " + user_county.name );
+			            System.out.println("Percentage of children in poverty: " + user_county.pov_percent);
+			            System.out.println("Number of children in poverty: " + user_county.pov_count);
+			            System.out.println("Median household income: "+ user_county.med_income);
+			            no_county = false;
+			        }
+				}
+			    scanner.close();
+			    if(no_county) {
+			    	System.out.println("Invalid county for " + state);
+			    }
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
 			}
-		    scanner.close();
-		    if(no_county) {
-		    	System.out.println("Invalid county for " + state);
-		    }
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+		} else {
+			System.out.println("Invalid state.");
 		}
 		
 	}
