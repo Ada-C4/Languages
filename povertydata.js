@@ -6,7 +6,7 @@
 
   request = require('request');
 
-  state = 'WA';
+  state = process.argv[2];
 
   path = "http://www.census.gov/did/www/saipe/downloads/estmod14/est14_" + state + ".txt";
 
