@@ -6,6 +6,10 @@
 
   state = process.argv[2];
 
+  if (state === void 0) {
+    console.log("\n\nWelcome to the US Poverty Data Portal\n\n To retrieve poverty data for a state, pass in the two letter state abbreviation as the first argument when running the program\n example:  node povertydata.js \"WA\" \n\n To retrieve poverty data for a particular county, pass in the county name as the second argument when running the program\n example:  node povertydata.js \"WA\" \"King\" \n\n");
+  }
+
   path = "http://www.census.gov/did/www/saipe/downloads/estmod14/est14_" + state + ".txt";
 
   request.get(path, function(error, response, body) {
@@ -15,9 +19,15 @@
       stateData = new StateData(state, countyDataArray);
       county = process.argv[3];
       console.log("\nSTATE POVERTY DATA FOR " + stateData.state + "\n");
-      stateData.highestPercentage();
-      stateData.lowestPercentage();
-      return stateData.findCountyData(county);
+      if (county === void 0) {
+        stateData.highestPercentage();
+        stateData.lowestPercentage();
+        return console.log("To learn more about a specific county, pass in the county name as a second argument when running the program again\n\n\n");
+      } else {
+        return stateData.findCountyData(county);
+      }
+    } else {
+      return console.log("We could not find data for " + state + ". Please try again.");
     }
   });
 
@@ -98,7 +108,7 @@
     };
 
     StateData.prototype.findCountyData = function(countyName) {
-      var county, foundCounty, i, len, ref, thisCountyName;
+      var county, foundCounty, i, j, len, len1, ref, ref1, results, thisCountyName;
       countyName = countyName.replace(" County", "");
       ref = this.allCounties;
       for (i = 0, len = ref.length; i < len; i++) {
@@ -110,10 +120,16 @@
       }
       if (foundCounty) {
         console.log("Data for " + foundCounty.countyName + ":");
-        console.log(foundCounty.printData());
-        return foundCounty;
+        return console.log(foundCounty.printData());
       } else {
-        return console.log("County not found");
+        console.log(countyName + " County not found\nPlease select one of the counties below and pass in as a second argument when running the program");
+        ref1 = this.allCounties;
+        results = [];
+        for (j = 0, len1 = ref1.length; j < len1; j++) {
+          county = ref1[j];
+          results.push(console.log(county.countyName));
+        }
+        return results;
       }
     };
 

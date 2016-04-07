@@ -1,6 +1,12 @@
 # fs = require('fs')
 request = require('request')
 state = process.argv[2]
+if state == undefined
+  console.log "\n\nWelcome to the US Poverty Data Portal\n\n
+              To retrieve poverty data for a state, pass in the two letter state abbreviation as the first argument when running the program\n
+              example:  node povertydata.js \"WA\" \n\n
+              To retrieve poverty data for a particular county, pass in the county name as the second argument when running the program\n
+              example:  node povertydata.js \"WA\" \"King\" \n\n"
 path = "http://www.census.gov/did/www/saipe/downloads/estmod14/est14_#{state}.txt"
 request.get(path, (error, response, body) ->
   if !error && response.statusCode == 200
@@ -8,9 +14,14 @@ request.get(path, (error, response, body) ->
     stateData = new StateData(state, countyDataArray)
     county = process.argv[3]
     console.log "\nSTATE POVERTY DATA FOR #{stateData.state}\n"
-    stateData.highestPercentage()
-    stateData.lowestPercentage()
-    stateData.findCountyData(county)
+    if county == undefined
+      stateData.highestPercentage()
+      stateData.lowestPercentage()
+      console.log "To learn more about a specific county, pass in the county name as a second argument when running the program again\n\n\n"
+    else
+     stateData.findCountyData(county)
+  else
+    console.log "We could not find data for #{state}. Please try again."
     )
 
 #Constructor for CountyData class, which will represent the following:
@@ -53,7 +64,6 @@ class StateData
     maxCounty.printData()
     return maxCounty
 
-
   lowestPercentage: () ->
     percentageArr = @allCounties.map((county)-> county.childrenPercentage)
     min = Math.min.apply(Math, percentageArr)
@@ -73,6 +83,7 @@ class StateData
     if foundCounty
       console.log "Data for #{foundCounty.countyName}:"
       console.log foundCounty.printData()
-      return foundCounty
     else
-      console.log "County not found"
+      console.log "#{countyName} County not found\nPlease select one of the counties below and pass in as a second argument when running the program"
+      for county in @allCounties
+        console.log county.countyName
