@@ -46,9 +46,6 @@ public class Program {
 			        }
 				}
 				scanFile.close();
-			    if(!countyFound) {
-			    	System.out.println("Invalid county for " + state);
-			    }
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			}	
