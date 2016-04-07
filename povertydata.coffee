@@ -1,5 +1,6 @@
-fs = require('fs')
+# fs = require('fs')
 request = require('request')
+console.log process.argv
 state = process.argv[2]
 path = "http://www.census.gov/did/www/saipe/downloads/estmod14/est14_#{state}.txt"
 request.get(path, (error, response, body) ->
@@ -9,7 +10,8 @@ request.get(path, (error, response, body) ->
     console.log stateData.state
     console.log stateData.highestPercentage()
     console.log stateData.lowestPercentage()
-    console.log stateData.findCountyData("King County")
+    county = process.argv[3]
+    console.log stateData.findCountyData(county)
     )
 
 #Constructor for CountyData class, which will represent the following:
