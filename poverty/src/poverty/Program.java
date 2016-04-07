@@ -23,33 +23,37 @@ public class Program {
 			}
 		}
 		
-		try {
-			Scanner scanFile = new Scanner(file);
-			// capture user input for county 
-			System.out.print("Enter a county in " + state + ": ");
-			String county = scanInput.nextLine();
-			// find and print the line matching the county entered by user
-			String line; 
-			boolean countyFound = false;
-			while (scanFile.hasNextLine()) {
-				line = scanFile.nextLine();
+		boolean countyFound = false;
+		while (!countyFound) {
+			try {
+				Scanner scanFile = new Scanner(file);
+				// capture user input for county 
+				System.out.print("Enter a county in " + state + ": ");
+				String county = scanInput.nextLine();
+				// find and print the line matching the county entered by user
+				String line; 
 				
-				if(line.toLowerCase().contains(county.toLowerCase())) { 		            
-		            County userCounty = new County(line);
-		            System.out.println("County: " + userCounty.name );
-		            System.out.println("Percentage of children in poverty: " + userCounty.povPercent);
-		            System.out.println("Number of children in poverty: " + userCounty.povCount);
-		            System.out.println("Median household income: "+ userCounty.medIncome);
-		            countyFound = true;
-		        }
-			}
-			scanFile.close();
-		    if(!countyFound) {
-		    	System.out.println("Invalid county for " + state);
-		    }
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+				while (scanFile.hasNextLine()) {
+					line = scanFile.nextLine();
+					
+					if(line.toLowerCase().contains(county.toLowerCase())) { 		            
+			            County userCounty = new County(line);
+			            System.out.println("County: " + userCounty.name );
+			            System.out.println("Percentage of children in poverty: " + userCounty.povPercent);
+			            System.out.println("Number of children in poverty: " + userCounty.povCount);
+			            System.out.println("Median household income: "+ userCounty.medIncome);
+			            countyFound = true;
+			        }
+				}
+				scanFile.close();
+			    if(!countyFound) {
+			    	System.out.println("Invalid county for " + state);
+			    }
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}	
 		}
+		
 		scanInput.close();	
 	}
 }
