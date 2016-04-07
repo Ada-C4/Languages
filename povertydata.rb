@@ -10,8 +10,8 @@ class County
   end
 
   def self.all
-    print "Please enter WA or CA for information:  "
-    state = gets.chomp
+    puts "Please enter WA or CA for information:  "
+    state = gets.chomp.upcase
     if state == "WA"
       @file= File.open('est14_WA.txt')
     elsif state == "CA"
@@ -21,19 +21,29 @@ class County
     @file.each do |row|
       array.push(
       County.new(row[193..237], row[239..241], row[76..79], row[49..56], row[133..138]))
-      end
+    end
     return array
   end
 
   def self.highest_poverty_WA
     percents = []
     all.each do |row|
-      percents.push(row.percent)
+      percents.push(row.percent += row.county)
     end
     return percents.max
   end
-  puts self.highest_poverty_WA
+    puts self.highest_poverty_WA
 end
+
+#   def self.counties
+#     counties = []
+#     all.each do |row|
+#       counties.push(row.county)
+#     end
+#     return counties.county
+#   end
+#   puts self.counties
+# end
 
 
 
