@@ -32,8 +32,13 @@ public class Program {
 			try {
 				Scanner scanFile = new Scanner(file);
 				// capture user input for county 
-				System.out.print("Enter a county in " + state + ": ");
+				System.out.print("Enter a county in " + state + " or 'q' to quit: ");
 				String county = scanInput.nextLine();
+				if (county.equals("q")) { 
+					scanFile.close();
+					System.out.println("BYE.");
+					return; 
+				}
 				// find and print the line matching the county entered by user
 				String line; 
 				
