@@ -25,7 +25,6 @@ public class GetPovertyInfo {
 	}
 	
 	public static void printCountyInfo(String countyRecord) {
-		System.out.println(countyRecord);
-//		System.out.println(String.format("In %s, %s children (%s%%) are in poverty. The median household income is $%s.", countyRecord.substring(193, 239).trim(), countyRecord.substring(49, 57).trim(), countyRecord.substring(76, 80).trim(), countyRecord.substring(133, 139).trim()));
+		System.out.println(String.format("In %s, %s children (%s%%) are in poverty. The median household income is $%s.", countyRecord.substring(193, 239).trim(), countyRecord.substring(49, 57).trim(), countyRecord.substring(76, 80).trim(), countyRecord.substring(133, 139).trim()));
 	}
 }
