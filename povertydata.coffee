@@ -1,5 +1,16 @@
 fs = require('fs')
-path = 'est14_WA.txt'
+request = require('request')
+state = 'WA'
+path = "http://www.census.gov/did/www/saipe/downloads/estmod14/est14_#{state}.txt"
+request.get(path, (error, response, body) ->
+  if !error && response.statusCode == 200
+    countyDataArray = body.toString().split("\n")
+    stateData = new StateData(state, countyDataArray)
+    console.log stateData.state
+    console.log stateData.highestPercentage()
+    console.log stateData.lowestPercentage()
+    console.log stateData.findCountyData("King County")
+    )
 
 #Constructor for CountyData class, which will represent the following:
 # count of people age 0-17 (i.e., children) in poverty (index 8)
@@ -15,15 +26,16 @@ class StateData
     @allCounties = createAllCounties(countyDataArray)
 
   createAllCounties = (countyDataArray) ->
-      allCounties = []
-      for county in countyDataArray[1...countyDataArray.length-1]
-        childrenCount = county[49..56].trim()
-        childrenPercentage = county[76..79].trim()
-        medianIncome = county[133..138].trim()
-        countyName = county[193..237].trim()
-        countyData = new CountyData(childrenCount, childrenPercentage, medianIncome, countyName)
-        allCounties.push(countyData)
-      return allCounties
+    allCounties = []
+    for county in countyDataArray[1...countyDataArray.length-1]
+      childrenCount = county[49..56].trim()
+      childrenPercentage = county[76..79].trim()
+      medianIncome = county[133..138].trim()
+      countyName = county[193..237].trim()
+      countyData = new CountyData(childrenCount, childrenPercentage, medianIncome, countyName)
+      allCounties.push(countyData)
+    return allCounties
+
 
   highestPercentage: () ->
     percentageArr = @allCounties.map((county)-> county.childrenPercentage)
@@ -49,17 +61,3 @@ class StateData
       foundCounty
     else
       "County not found"
-
-
-fs.readFile(path, callback = (err, data) ->
-  if err
-    console.log err
-  else
-    countyData = data.toString().split("\n")
-    stateData = new StateData("WA", countyData)
-    console.log(stateData.state)
-    console.log(stateData.highestPercentage())
-    console.log(stateData.lowestPercentage())
-    console.log(stateData.findCountyData("King County"))
-    console.log(stateData.findCountyData("King"))
-  )
