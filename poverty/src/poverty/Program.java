@@ -13,14 +13,23 @@ public class Program {
 
 		
 		County highestCACounty = findExtremeCounty(caFile, true);
-//		County lowestCACounty = findExtremeCounty(caFile, false);
-//		County highestWACounty = findExtremeCounty(waFile, true);
-//		County lowestWACounty = findExtremeCounty(waFile, false);
-//		
+		County lowestCACounty = findExtremeCounty(caFile, false);
+		County highestWACounty = findExtremeCounty(waFile, true);
+		County lowestWACounty = findExtremeCounty(waFile, false);
+
 		System.out.print("In California, the county with the highest poverty percent is: ");
 		System.out.println(highestCACounty.name);
 		System.out.println(highestCACounty.povPercent);
+		System.out.print("And the county with the lowest poverty percent is: ");
+		System.out.println(lowestCACounty.name);
+		System.out.println(lowestCACounty.povPercent);
 		
+		System.out.print("In Washington, the county with the highest poverty percent is: ");
+		System.out.println(highestWACounty.name);
+		System.out.println(highestWACounty.povPercent);
+		System.out.print("And the county with the lowest poverty percent is: ");
+		System.out.println(lowestWACounty.name);
+		System.out.println(lowestWACounty.povPercent);
 		
 		Scanner scanInput = new Scanner(System.in);
 
@@ -95,9 +104,16 @@ public class Program {
 			currentLineColumns = currentLine.split("\\s+");
 			currentLinePovPercent = Double.parseDouble(currentLineColumns[11]);
 			
-			if (currentLinePovPercent > targetPovPercent) {
-				targetLine = currentLine;
-				targetPovPercent = currentLinePovPercent;
+			if (highest) {
+				if (currentLinePovPercent > targetPovPercent) {
+					targetLine = currentLine;
+					targetPovPercent = currentLinePovPercent;
+				}
+			} else {
+				if (currentLinePovPercent < targetPovPercent) {
+					targetLine = currentLine;
+					targetPovPercent = currentLinePovPercent;
+				}
 			}
 		}
 		scanFile.close();
