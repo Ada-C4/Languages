@@ -8,12 +8,11 @@ county_dict = {}
 
 f = open('./WA_data.txt')
 for line in f:
-    if line[3:6].strip != "0": # To exclude the overall state data
+    if line[3:6].strip() != "0": # To exclude the overall state data
         count_poverty = line[52:58].strip()
-        percent_poverty = float(line[77:80])
+        percent_poverty = float(line[76:80])
         median_income = line[135:140].strip()
         county_name = line[193:238].strip()
-
 
         if percent_poverty > highest_percent_poverty:
             highest_percent_poverty = percent_poverty
@@ -24,5 +23,6 @@ for line in f:
 
         county_dict[county_name] = {'count_poverty': count_poverty, 'percent_poverty': percent_poverty, 'median_income': median_income}
 
-while True:
-    print "The highest percent of poverty is {} in {}".format(highest_percent_poverty, highest_percent_poverty_county)
+
+print "The highest percent of children in poverty is {}% in {}".format(highest_percent_poverty, highest_percent_poverty_county)
+print "The count of children in poverty is {} and the median income is ${}".format(county_dict[highest_percent_poverty_county]['count_poverty'], county_dict[highest_percent_poverty_county]['median_income'])
