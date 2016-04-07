@@ -32,11 +32,11 @@ public class Program {
 					line = scanner.nextLine();
 					
 					if(line.toLowerCase().contains(county.toLowerCase())) { 		            
-			            County user_county = new County(line);
-			            System.out.println("County: " + user_county.name );
-			            System.out.println("Percentage of children in poverty: " + user_county.pov_percent);
-			            System.out.println("Number of children in poverty: " + user_county.pov_count);
-			            System.out.println("Median household income: "+ user_county.med_income);
+			            County userCounty = new County(line);
+			            System.out.println("County: " + userCounty.name );
+			            System.out.println("Percentage of children in poverty: " + userCounty.pov_percent);
+			            System.out.println("Number of children in poverty: " + userCounty.pov_count);
+			            System.out.println("Median household income: "+ userCounty.med_income);
 			            countyFound = true;
 			        }
 				}
