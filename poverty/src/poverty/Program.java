@@ -5,8 +5,23 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Program {
-	public static void main(String[] args) {	
+	public static void main(String[] args) throws FileNotFoundException {	
 		System.out.println("Welcome to the CA/WA Poverty Educator!");
+
+		File caFile = new File("california.txt");
+		File waFile = new File("washington.txt");
+
+		
+		County highestCACounty = findExtremeCounty(caFile, true);
+//		County lowestCACounty = findExtremeCounty(caFile, false);
+//		County highestWACounty = findExtremeCounty(waFile, true);
+//		County lowestWACounty = findExtremeCounty(waFile, false);
+//		
+		System.out.print("In California, the county with the highest poverty percent is: ");
+		System.out.println(highestCACounty.name);
+		System.out.println(highestCACounty.povPercent);
+		
+		
 		Scanner scanInput = new Scanner(System.in);
 
 		File file = null; 
@@ -17,9 +32,9 @@ public class Program {
 			state = scanInput.nextLine().toUpperCase();
 			// use appropriate file based on user state selection
 			if(state.equals("WA")) {
-				file = new File("washington.txt");
+				file = waFile;
 			} else if(state.equals("CA")){
-				file = new File("california.txt");
+				file = caFile;
 			} else if(state.equals("Q")) {
 				scanInput.close();
 				System.out.println("BYE.");
@@ -61,5 +76,31 @@ public class Program {
 		}
 		
 		scanInput.close();	
+	}
+	
+	
+	public static County findExtremeCounty(File file, boolean highest) throws FileNotFoundException {
+		
+		Scanner scanFile = new Scanner(file);
+		String currentLine = scanFile.nextLine(); 
+		String[] currentLineColumns; 
+		Double currentLinePovPercent; 
+		String targetLine = currentLine;
+		String[] targetLineColumns = targetLine.split("\\s+");
+		Double targetPovPercent = Double.parseDouble(targetLineColumns[11]);
+		
+		
+		while (scanFile.hasNextLine()) {
+			currentLine = scanFile.nextLine();
+			currentLineColumns = currentLine.split("\\s+");
+			currentLinePovPercent = Double.parseDouble(currentLineColumns[11]);
+			
+			if (currentLinePovPercent > targetPovPercent) {
+				targetLine = currentLine;
+				targetPovPercent = currentLinePovPercent;
+			}
+		}
+		scanFile.close();
+		return new County(targetLine);
 	}
 }
