@@ -13,13 +13,17 @@ public class Program {
 		String state = null;
 		while(file == null) {
 			// capture user input for state 
-			System.out.print("Enter 'CA' for California or 'WA' for Washington: ");
+			System.out.print("Enter 'CA' for California, 'WA' for Washington, or 'q' to quit: ");
 			state = scanInput.nextLine().toUpperCase();
 			// use appropriate file based on user state selection
 			if(state.equals("WA")) {
 				file = new File("washington.txt");
 			} else if(state.equals("CA")){
 				file = new File("california.txt");
+			} else if(state.equals("Q")) {
+				scanInput.close();
+				System.out.println("BYE.");
+				return;
 			}
 		}
 		
