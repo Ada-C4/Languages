@@ -9,9 +9,15 @@ class County
   end
 
   def self.all_counties
-    file_WA = File.open('est14_WA.txt')
+    puts "Choose a state: WA or CA: "
+    @state = gets.chomp.upcase
+    if @state == "WA"
+      file = File.open('est14_WA.txt')
+    elsif @state == "CA"
+      file = File.open('est14_CA.txt')
+    end
     data_array = []
-    file_WA.each do |line|
+    file.each do |line|
       data_array.push(County.new(line[193..217], line[76..79], line[49..56], line[133..138]))
     end
     return data_array
@@ -30,9 +36,8 @@ class County
         income = county.median_income
       end
     end
-    return "#{highest}% poverty in #{county_name}. Count is #{count} and median income is $#{income}"
+    puts "#{highest}% poverty in #{county_name} is the highest in #{@state}. #{count} people live in poverty and the median income is $#{income}"
   end
-  puts self.find_highest_pov
 
   def self.find_lowest_pov
     lowest = 100
@@ -47,7 +52,9 @@ class County
         income = county.median_income
       end
     end
-    return "#{lowest}% poverty in #{county_name}. Count is #{count} and median income is $#{income}"
+    puts "#{lowest}% poverty in #{county_name} is the lowest in #{@state}. #{count} people live in poverty and the median income is $#{income}"
   end
-  puts self.find_lowest_pov
+
+  self.find_highest_pov
+  self.find_lowest_pov
 end
