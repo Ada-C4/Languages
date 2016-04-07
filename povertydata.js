@@ -4,8 +4,6 @@
 
   request = require('request');
 
-  console.log(process.argv);
-
   state = process.argv[2];
 
   path = "http://www.census.gov/did/www/saipe/downloads/estmod14/est14_" + state + ".txt";
@@ -15,11 +13,11 @@
     if (!error && response.statusCode === 200) {
       countyDataArray = body.toString().split("\n");
       stateData = new StateData(state, countyDataArray);
-      console.log(stateData.state);
-      console.log(stateData.highestPercentage());
-      console.log(stateData.lowestPercentage());
       county = process.argv[3];
-      return console.log(stateData.findCountyData(county));
+      console.log("\nSTATE POVERTY DATA FOR " + stateData.state + "\n");
+      stateData.highestPercentage();
+      stateData.lowestPercentage();
+      return stateData.findCountyData(county);
     }
   });
 
@@ -30,6 +28,10 @@
       this.medianIncome = medianIncome1;
       this.countyName = countyName1;
     }
+
+    CountyData.prototype.printData = function() {
+      return console.log(" " + this.countyName + "\n Percentage of Children in Poverty: " + this.childrenPercentage + "%\n Number of Children in Poverty: " + this.childrenCount + "\n Median Household Income: " + this.medianIncome + "\n");
+    };
 
     return CountyData;
 
@@ -72,6 +74,8 @@
           maxCounty = county;
         }
       }
+      console.log("County with highest percentage of childhood poverty:");
+      maxCounty.printData();
       return maxCounty;
     };
 
@@ -88,6 +92,8 @@
           minCounty = county;
         }
       }
+      console.log("County with the lowest percentage of childhood poverty:");
+      minCounty.printData();
       return minCounty;
     };
 
@@ -103,9 +109,11 @@
         }
       }
       if (foundCounty) {
+        console.log("Data for " + foundCounty.countyName + ":");
+        console.log(foundCounty.printData());
         return foundCounty;
       } else {
-        return "County not found";
+        return console.log("County not found");
       }
     };
 

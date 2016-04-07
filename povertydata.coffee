@@ -1,17 +1,16 @@
 # fs = require('fs')
 request = require('request')
-console.log process.argv
 state = process.argv[2]
 path = "http://www.census.gov/did/www/saipe/downloads/estmod14/est14_#{state}.txt"
 request.get(path, (error, response, body) ->
   if !error && response.statusCode == 200
     countyDataArray = body.toString().split("\n")
     stateData = new StateData(state, countyDataArray)
-    console.log stateData.state
-    console.log stateData.highestPercentage()
-    console.log stateData.lowestPercentage()
     county = process.argv[3]
-    console.log stateData.findCountyData(county)
+    console.log "\nSTATE POVERTY DATA FOR #{stateData.state}\n"
+    stateData.highestPercentage()
+    stateData.lowestPercentage()
+    stateData.findCountyData(county)
     )
 
 #Constructor for CountyData class, which will represent the following:
@@ -22,6 +21,12 @@ request.get(path, (error, response, body) ->
 
 class CountyData
   constructor: (@childrenCount, @childrenPercentage, @medianIncome, @countyName) ->
+
+  printData: () ->
+    console.log " #{@countyName}\n
+    Percentage of Children in Poverty: #{@childrenPercentage}%\n
+    Number of Children in Poverty: #{@childrenCount}\n
+    Median Household Income: #{@medianIncome}\n"
 
 class StateData
   constructor: (@state, countyDataArray) ->
@@ -38,14 +43,16 @@ class StateData
       allCounties.push(countyData)
     return allCounties
 
-
   highestPercentage: () ->
     percentageArr = @allCounties.map((county)-> county.childrenPercentage)
     max = Math.max.apply(Math, percentageArr)
     for county in @allCounties
       if county.childrenPercentage == max.toString()
         maxCounty = county
+    console.log "County with highest percentage of childhood poverty:"
+    maxCounty.printData()
     return maxCounty
+
 
   lowestPercentage: () ->
     percentageArr = @allCounties.map((county)-> county.childrenPercentage)
@@ -53,6 +60,8 @@ class StateData
     for county in @allCounties
       if county.childrenPercentage == min.toString()
         minCounty = county
+    console.log "County with the lowest percentage of childhood poverty:"
+    minCounty.printData()
     return minCounty
 
   findCountyData: (countyName) ->
@@ -62,6 +71,8 @@ class StateData
       if thisCountyName == countyName || thisCountyName.toLowerCase() == countyName || thisCountyName.toUpperCase() == countyName
         foundCounty = county
     if foundCounty
-      foundCounty
+      console.log "Data for #{foundCounty.countyName}:"
+      console.log foundCounty.printData()
+      return foundCounty
     else
-      "County not found"
+      console.log "County not found"
