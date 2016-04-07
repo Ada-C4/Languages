@@ -27,20 +27,20 @@ class County
 
   def self.find_by_county
     @match = false
-      while @match == false
-        print "Search by counties in California or Washington. Type in a county: "
-        county_input = gets.chomp.downcase
-        if county_input == "q" || county_input == "quit"
-          return puts "Goodbye"
-        else
-          all_counties.each do |county|
-            if county.name.downcase.include?(county_input)
-              @match = true
-              puts "There is #{county.percent}% poverty in #{county.name}. That amounts to #{county.num} people. The median income is $#{county.median_income}"
-            end
+    while @match == false
+      print "Search by counties in California or Washington. Type in a county: "
+      county_input = gets.chomp.downcase
+      if county_input == "q" || county_input == "quit"
+        return puts "Goodbye"
+      else
+        all_counties.each do |county|
+          if county.name.downcase.include?(county_input)
+            @match = true
+            puts "There is #{county.percent}% poverty in #{county.name}. That amounts to #{county.num} people. The median income is $#{county.median_income}"
           end
         end
       end
+    end
   end
 
   def self.find_highest_pov
