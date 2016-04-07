@@ -12,7 +12,7 @@ class CountyData
 
 allCounties = (countyDataArray) ->
   allCounties = []
-  for county in countyDataArray[1..countyDataArray.length]
+  for county in countyDataArray[1...countyDataArray.length-1]
     childrenCount = county[49..56].trim()
     childrenPercentage = county[76..79].trim()
     medianIncome = county[133..138].trim()
@@ -24,11 +24,21 @@ allCounties = (countyDataArray) ->
 highestPercentage = (allCounties) ->
   percentageArr = allCounties.map((county)-> county.childrenPercentage)
   max = Math.max.apply(Math, percentageArr)
-  console.log max
   for county in allCounties
     if county.childrenPercentage == max.toString()
       maxCounty = county
   return maxCounty
+
+lowestPercentage = (allCounties) ->
+  percentageArr = allCounties.map((county)-> county.childrenPercentage)
+  # console.log(percentageArr)
+  min = Math.min.apply(Math, percentageArr)
+  # console.log(min)
+  for county in allCounties
+    if county.childrenPercentage == min.toString()
+      minCounty = county
+  # console.log(minCounty)
+  return minCounty
 
 fs.readFile(path, callback = (err, data) ->
   if err
@@ -37,6 +47,6 @@ fs.readFile(path, callback = (err, data) ->
     countyData = data.toString().split("\n")
     allCounties = allCounties(countyData)
     a = highestPercentage(allCounties)
-    console.log(a)
-
+    b = lowestPercentage(allCounties)
+    console.log(b)
   )
