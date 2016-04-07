@@ -31,14 +31,20 @@ highestPercentage = (allCounties) ->
 
 lowestPercentage = (allCounties) ->
   percentageArr = allCounties.map((county)-> county.childrenPercentage)
-  # console.log(percentageArr)
   min = Math.min.apply(Math, percentageArr)
-  # console.log(min)
   for county in allCounties
     if county.childrenPercentage == min.toString()
       minCounty = county
-  # console.log(minCounty)
   return minCounty
+
+findCountyData = (countyName, allCounties) ->
+  for county in allCounties
+    if county.countyName == countyName
+      foundCounty = county
+  if foundCounty
+    console.log(foundCounty)
+  else
+    console.log("County not found")
 
 fs.readFile(path, callback = (err, data) ->
   if err
@@ -48,5 +54,5 @@ fs.readFile(path, callback = (err, data) ->
     allCounties = allCounties(countyData)
     a = highestPercentage(allCounties)
     b = lowestPercentage(allCounties)
-    console.log(b)
+    findCountyData('King County', allCounties)
   )
