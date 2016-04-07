@@ -10,49 +10,56 @@ path = 'est14_WA.txt'
 class CountyData
   constructor: (@childrenCount, @childrenPercentage, @medianIncome, @countyName) ->
 
-allCounties = (countyDataArray) ->
-  allCounties = []
-  for county in countyDataArray[1...countyDataArray.length-1]
-    childrenCount = county[49..56].trim()
-    childrenPercentage = county[76..79].trim()
-    medianIncome = county[133..138].trim()
-    countyName = county[193..237].trim()
-    countyData = new CountyData(childrenCount, childrenPercentage, medianIncome, countyName)
-    allCounties.push(countyData)
-  return allCounties
+class StateData
+  constructor: (@state, countyDataArray) ->
+    @allCounties = createAllCounties(countyDataArray)
 
-highestPercentage = (allCounties) ->
-  percentageArr = allCounties.map((county)-> county.childrenPercentage)
-  max = Math.max.apply(Math, percentageArr)
-  for county in allCounties
-    if county.childrenPercentage == max.toString()
-      maxCounty = county
-  return maxCounty
+  createAllCounties = (countyDataArray) ->
+      allCounties = []
+      for county in countyDataArray[1...countyDataArray.length-1]
+        childrenCount = county[49..56].trim()
+        childrenPercentage = county[76..79].trim()
+        medianIncome = county[133..138].trim()
+        countyName = county[193..237].trim()
+        countyData = new CountyData(childrenCount, childrenPercentage, medianIncome, countyName)
+        allCounties.push(countyData)
+      return allCounties
 
-lowestPercentage = (allCounties) ->
-  percentageArr = allCounties.map((county)-> county.childrenPercentage)
-  min = Math.min.apply(Math, percentageArr)
-  for county in allCounties
-    if county.childrenPercentage == min.toString()
-      minCounty = county
-  return minCounty
+  highestPercentage: () ->
+    percentageArr = @allCounties.map((county)-> county.childrenPercentage)
+    max = Math.max.apply(Math, percentageArr)
+    for county in @allCounties
+      if county.childrenPercentage == max.toString()
+        maxCounty = county
+    return maxCounty
 
-findCountyData = (countyName, allCounties) ->
-  for county in allCounties
-    if county.countyName == countyName
-      foundCounty = county
-  if foundCounty
-    console.log(foundCounty)
-  else
-    console.log("County not found")
+  lowestPercentage: () ->
+    percentageArr = @allCounties.map((county)-> county.childrenPercentage)
+    min = Math.min.apply(Math, percentageArr)
+    for county in @allCounties
+      if county.childrenPercentage == min.toString()
+        minCounty = county
+    return minCounty
+
+  findCountyData: (countyName) ->
+    for county in @allCounties
+      if county.countyName == countyName
+        foundCounty = county
+    if foundCounty
+      foundCounty
+    else
+      "County not found"
+
 
 fs.readFile(path, callback = (err, data) ->
   if err
     console.log err
   else
     countyData = data.toString().split("\n")
-    allCounties = allCounties(countyData)
-    a = highestPercentage(allCounties)
-    b = lowestPercentage(allCounties)
-    findCountyData('King County', allCounties)
+    stateData = new StateData("WA", countyData)
+    console.log(stateData.state)
+    console.log(stateData.highestPercentage())
+    console.log(stateData.lowestPercentage())
+    console.log(stateData.findCountyData("King County"))
+    console.log(stateData.findCountyData("King"))
   )
