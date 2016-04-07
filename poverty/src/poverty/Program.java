@@ -34,9 +34,9 @@ public class Program {
 					if(line.toLowerCase().contains(county.toLowerCase())) { 		            
 			            County userCounty = new County(line);
 			            System.out.println("County: " + userCounty.name );
-			            System.out.println("Percentage of children in poverty: " + userCounty.pov_percent);
-			            System.out.println("Number of children in poverty: " + userCounty.pov_count);
-			            System.out.println("Median household income: "+ userCounty.med_income);
+			            System.out.println("Percentage of children in poverty: " + userCounty.povPercent);
+			            System.out.println("Number of children in poverty: " + userCounty.povCount);
+			            System.out.println("Median household income: "+ userCounty.medIncome);
 			            countyFound = true;
 			        }
 				}
