@@ -1,4 +1,29 @@
-# Take user input for the state
+def build_county_dict(lowestfile):
+    lpc = ""
+    lowest_youth_poverty = 100
+    hpc = ""
+    highest_youth_poverty = 0
+    data_dic = {}
+
+    for line in file:
+        if line[3:6].strip() != "0":
+            all_poverty = line[7:15].strip()
+            county = line[193:238].strip()
+            count_youth_poverty = float(line[49:57])
+            percent_youth_poverty = float(line[76:80])
+            median_household_income = line[133:139].strip()
+
+            if percent_youth_poverty < lowest_youth_poverty:
+                lpc = county
+                lowest_youth_poverty = percent_youth_poverty
+            if percent_youth_poverty > highest_youth_poverty:
+                hpc = county
+                highest_youth_poverty = percent_youth_poverty
+
+            data_dic[county] = [percent_youth_poverty, count_youth_poverty, median_household_income]
+
+    return data_dic, hpc, lpc
+
 
 print "What state would you like to lean about?"
 print "Options: 1) Massachusetts, 2) Washington"
@@ -9,62 +34,33 @@ while acceptable == False:
     if var == "1":
         print "You have chosen to learn more about Massachusetts"
         file = open('../est14_MA.txt', 'r')
+        data_dic, highest_poverty_county, lowest_poverty_county = build_county_dict(file)
+        # data_dic = result[0]
+        # highest_poverty_county = result[1]
+        # lowest_poverty_county = result[2]
         acceptable = True
     elif var == "2":
         print "You have chosen to learn more about Washington"
         file = open('../est14_WA.txt', 'r')
+        result = build_county_dict(file)
+        data_dic = result[0]
+        highest_poverty_county = result[1]
+        lowest_poverty_county = result[2]
         acceptable = True
     else:
         print "Hmm, that doesn't seem like a valid input. Try again."
 
-# Initialize tracking variables
-
-lowest_poverty_county = ""
-lowest_youth_poverty = 100
-lowest_median_income = ""
-lowest_youth_count = ""
-highest_poverty_county = ""
-highest_youth_poverty = 0
-highest_median_income = ""
-highest_youth_count = ""
-
-data_dic = {}
-
-
-# Step through each line and keep track of the county with the highest youth poverty rate and the lowest youth poverty rate
-for line in file:
-    if line[3:6].strip() != "0":
-        all_poverty = line[7:15].strip()
-        county = line[193:238].strip()
-        count_youth_poverty = float(line[49:57])
-        percent_youth_poverty = float(line[76:80])
-        median_household_income = line[133:139].strip()
-
-        if percent_youth_poverty < lowest_youth_poverty:
-            lowest_poverty_county = county
-            lowest_youth_poverty = percent_youth_poverty
-            lowest_youth_count = count_youth_poverty
-            lowest_median_income = median_household_income
-        if percent_youth_poverty > highest_youth_poverty:
-            highest_poverty_county = county
-            highest_youth_poverty = percent_youth_poverty
-            highest_youth_count = count_youth_poverty
-            highest_median_income = median_household_income
-
-        # Keeping track of info for county search
-        data_dic[county] = [percent_youth_poverty, count_youth_poverty, median_household_income]
-
-# Print out details on the countys
 print ""
 print "The county with the highest percentage of children in poverty is " + str(highest_poverty_county)
-print "This county has " + str(highest_youth_poverty) + "% of children in poverty."
-print "The number of children in poverty is " + str(highest_youth_count)
-print "The median household income for this county is " + str(highest_median_income)
+print "This county has " + str(data_dic[highest_poverty_county][0]) + "% of children in poverty."
+print "The number of children in poverty is " + str(data_dic[highest_poverty_county][1])
+print "The median household income for this county is " + str(data_dic[highest_poverty_county][2])
 print ""
 print "The county with the lowest percentage of children in poverty is " + str(lowest_poverty_county)
-print "This county has " + str(lowest_youth_poverty) + "% of children in poverty."
-print "The number of children in poverty is " + str(lowest_youth_count)
-print "The median household income for this county is " + str(lowest_median_income)
+print "This county has " + str(data_dic[lowest_poverty_county][0]) + "% of children in poverty."
+print "The number of children in poverty is " + str(data_dic[lowest_poverty_county][1])
+print "The median household income for this county is " + str(data_dic[lowest_poverty_county][2])
+print ""
 
 print "Would you like to learn about other counties in this state?"
 print "Type 'quit' at any time to exit the program"
