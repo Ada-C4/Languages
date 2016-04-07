@@ -7,39 +7,54 @@ import java.util.Scanner;
 public class Program {
 	public static void main(String[] args) throws FileNotFoundException {	
 		System.out.println("Welcome to the CA/WA Poverty Educator!");
-
+        System.out.println();
+        
 		File caFile = new File("california.txt");
 		File waFile = new File("washington.txt");
 
-		
 		County highestCACounty = findExtremeCounty(caFile, true);
 		County lowestCACounty = findExtremeCounty(caFile, false);
 		County highestWACounty = findExtremeCounty(waFile, true);
 		County lowestWACounty = findExtremeCounty(waFile, false);
 
-		System.out.print("In California, the county with the highest poverty percent is: ");
+		System.out.println("************");		
+		System.out.println("*CALIFORNIA*");	
+		System.out.println("************");
+		System.out.print("County with highest % poverty: ");
 		System.out.println(highestCACounty.name);
-		System.out.println(highestCACounty.povPercent);
-		System.out.print("And the county with the lowest poverty percent is: ");
+        System.out.println("Percentage of children in poverty: " + highestCACounty.povPercent);
+        System.out.println("Number of children in poverty: " + highestCACounty.povCount);
+        System.out.println("Median household income: "+ highestCACounty.medIncome);
+		System.out.println("------------");
+		System.out.print("County with lowest % poverty: ");
 		System.out.println(lowestCACounty.name);
-		System.out.println(lowestCACounty.povPercent);
-		
-		System.out.print("In Washington, the county with the highest poverty percent is: ");
+        System.out.println("Percentage of children in poverty: " + lowestCACounty.povPercent);
+        System.out.println("Number of children in poverty: " + lowestCACounty.povCount);
+        System.out.println("Median household income: "+ lowestCACounty.medIncome);
+		System.out.println("************");		
+		System.out.println("*WASHINGTON*");	
+		System.out.println("************");
+		System.out.print("County with highest % poverty: ");
 		System.out.println(highestWACounty.name);
-		System.out.println(highestWACounty.povPercent);
-		System.out.print("And the county with the lowest poverty percent is: ");
+        System.out.println("Percentage of children in poverty: " + highestWACounty.povPercent);
+        System.out.println("Number of children in poverty: " + highestWACounty.povCount);
+        System.out.println("Median household income: "+ highestWACounty.medIncome);
+		System.out.println("------------");
+		System.out.print("County with lowest % poverty: ");
 		System.out.println(lowestWACounty.name);
-		System.out.println(lowestWACounty.povPercent);
-		
+        System.out.println("Percentage of children in poverty: " + lowestWACounty.povPercent);
+        System.out.println("Number of children in poverty: " + lowestWACounty.povCount);
+        System.out.println("Median household income: "+ lowestWACounty.medIncome);
+        System.out.println("***************************************************************");
+        System.out.println();
 		Scanner scanInput = new Scanner(System.in);
 
 		File file = null; 
 		String state = null;
 		while(file == null) {
-			// capture user input for state 
 			System.out.print("Enter 'CA' for California, 'WA' for Washington, or 'q' to quit: ");
+	        System.out.println();
 			state = scanInput.nextLine().toUpperCase();
-			// use appropriate file based on user state selection
 			if(state.equals("WA")) {
 				file = waFile;
 			} else if(state.equals("CA")){
@@ -55,15 +70,15 @@ public class Program {
 		while (!countyFound) {
 			try {
 				Scanner scanFile = new Scanner(file);
-				// capture user input for county 
 				System.out.print("Enter a county in " + state + " or 'q' to quit: ");
+				System.out.println();
 				String county = scanInput.nextLine();
 				if (county.equals("q")) { 
 					scanFile.close();
 					System.out.println("BYE.");
 					return; 
 				}
-				// find and print the line matching the county entered by user
+				
 				String line; 
 				
 				while (scanFile.hasNextLine()) {
