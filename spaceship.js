@@ -67,22 +67,22 @@ SpaceShip.prototype.score = function(){
     location.reload();
   }
 
-  if (this.receipts > 70) {
+  if (this.receipts < 70) {
     this.totalScore ++;
-  } else if (this.receipts <= 80 && this.receipts < this.end) {
+  } else if (this.receipts >= 70 && this.receipts > this.end) {
     this.totalScore --;
-  } else if (this.receipts >= this.end) {
+  } else if (this.receipts > this.end) {
     alert("Your crew got too behind on receipts! You lose - try again.");
     location.reload();
 }
 
-  if (this.horde > 70) {
-    this.totalScore ++;
-  } else if (this.horde <= 70 && this.horde < this.end) {
-    this.totalScore ++;
-  } else if (this.horde >= this.end) {
-    alert("Your crew got too behind on receipts! You lose - try again.");
-    location.reload();
+if (this.horde < 70) {
+  this.totalScore ++;
+} else if (this.horde >= 70 && this.horde > this.end) {
+  this.totalScore --;
+} else if (this.horde > this.end) {
+  alert("You didn't find enough treasure! You lose - try again.");
+  location.reload();
 }
   $("#score").text(this.totalScore);
 };
