@@ -56,8 +56,10 @@ class StateData
     return minCounty
 
   findCountyData: (countyName) ->
+    countyName = countyName.replace(" County", "")
     for county in @allCounties
-      if county.countyName == countyName
+      thisCountyName = county.countyName.replace(" County", "")
+      if thisCountyName == countyName || thisCountyName.toLowerCase() == countyName || thisCountyName.toUpperCase() == countyName
         foundCounty = county
     if foundCounty
       foundCounty

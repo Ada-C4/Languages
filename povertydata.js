@@ -92,11 +92,13 @@
     };
 
     StateData.prototype.findCountyData = function(countyName) {
-      var county, foundCounty, i, len, ref;
+      var county, foundCounty, i, len, ref, thisCountyName;
+      countyName = countyName.replace(" County", "");
       ref = this.allCounties;
       for (i = 0, len = ref.length; i < len; i++) {
         county = ref[i];
-        if (county.countyName === countyName) {
+        thisCountyName = county.countyName.replace(" County", "");
+        if (thisCountyName === countyName || thisCountyName.toLowerCase() === countyName || thisCountyName.toUpperCase() === countyName) {
           foundCounty = county;
         }
       }
