@@ -10,10 +10,15 @@ class County
   end
 
   def self.all
-    @file_WA= File.open('est14_WA.txt')
-    @file_CA= File.open('est14_CA.txt')
+    print "Please enter WA or CA for information:  "
+    state = gets.chomp
+    if state == "WA"
+      @file= File.open('est14_WA.txt')
+    elsif state == "CA"
+      @file= File.open('est14_CA.txt')
+    end
     array = []
-    @file_WA.each do |row|
+    @file.each do |row|
       array.push(
       County.new(row[193..237], row[239..241], row[76..79], row[49..56], row[133..138]))
       end
