@@ -28,7 +28,6 @@ public class Program {
 			// capture user input for county 
 			System.out.print("Enter a county in " + state + ": ");
 			String county = scanInput.nextLine();
-			scanInput.close();
 			// find and print the line matching the county entered by user
 			String line; 
 			boolean countyFound = false;
@@ -51,6 +50,6 @@ public class Program {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		
+		scanInput.close();	
 	}
 }
