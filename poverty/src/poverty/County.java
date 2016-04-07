@@ -1,6 +1,8 @@
 package poverty;
 
 public class County {
+	final int NAME_START = 193;
+	final int NAME_END = 238;
 	
 	public String name;
 	public String povPercent;
@@ -8,7 +10,7 @@ public class County {
 	public String medIncome;
 
 	public County(String line) {
-		this.name = line.substring(193, 238);
+		this.name = line.substring(NAME_START, NAME_END);
 		
 		String[] details = line.split("\\s+");
 		this.povPercent = details[11];
