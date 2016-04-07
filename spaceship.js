@@ -1,4 +1,4 @@
-function SpaceShip(start, end) {
+var SpaceShip = function(start, end) {
  this.thirst = start;
  this.work = start;
  this.horde = start;
@@ -41,76 +41,78 @@ SpaceShip.prototype.status = function(){
   $("#horde").text(this.horde);
   $("#hunger").text(this.hunger);
   $("#receipts").text(this.receipts);
-}
-
-SpaceShip.prototype.thirstLevel = function(){
-  if (this.thirst > 70) {
-    this.totalScore --;
-  } else if (this.thirst <= 70) {
-    this.totalScore ++;
-  }
 };
 
-SpaceShip.prototype.workLevel = function(){
-  if (this.work > 70) {
-    this.totalScore --;
-  } else if (this.work <= 70) {
-    this.totalScore ++;
-  }
-};
+SpaceShip.prototype.score = function(){
+    if (this.thirst > 70) {
+      this.totalScore --;
+    } else if (this.thirst <= 70) {
+      this.totalScore ++;
+    }
 
-SpaceShip.prototype.hordeLevel = function(){
+    if (this.work > 70) {
+      this.totalScore --;
+    } else if (this.work <= 70) {
+      this.totalScore ++;
+    }
+
+    if (this.receipts > 70) {
+      this.totalScore ++;
+    } else if (this.receipts <= 80) {
+      this.totalScore --;
+    }
+
   if (this.horde > 70) {
     this.totalScore ++;
   } else if (this.horde <= 70) {
     this.totalScore ++;
   }
-};
 
-SpaceShip.prototype.receiptLevel = function(){
-  if (this.receipts > 70) {
-    this.totalScore ++;
-  } else if (this.receipts <= 80) {
+  if (this.thirst > 70) {
     this.totalScore --;
-  }
-};
-
-SpaceShip.prototype.hungerLevel = function(){
-  if (this.work > 70) {
-    this.totalScore --;
-  } else if (this.work <= 70) {
+  } else if (this.thirst <= 70) {
     this.totalScore ++;
   }
-};
-
-SpaceShip.prototype.score = function(){
-  console.log(this);
-  this.thirstLevel();
-  this.workLevel();
-  this.hordeLevel();
-  this.receiptLevel();
-  this.hungerLevel();
-  $("#score").text(crew.score);
+  $("#score").text(this.totalScore);
 };
 
 var crew = new SpaceShip(50, 100);
 
 $(document).ready(function(){
   crew.status();
-  crew.score();
 
   $("#drink").click(function(){
     crew.drink();
     alert("You drank something!");
-    crew.status();
     crew.score();
+    crew.status();
   });
 
   $("#eat").click(function(){
     crew.eat();
-    alert("You eat something!");
-    crew.status();
+    alert("You ate something!");
     crew.score();
+    crew.status();
   });
 
+  $("#deliver").click(function(){
+    crew.deliver();
+    alert("You delivered something!");
+    crew.score();
+    crew.status();
+  });
+
+  $("#account").click(function(){
+    crew.account();
+    alert("You did some accounting!");
+    crew.score();
+    crew.status();
+  });
+
+  $("#steal").click(function(){
+    crew.steal();
+    alert("You stole some treasure!");
+    crew.score();
+    crew.status();
+  });
 });
