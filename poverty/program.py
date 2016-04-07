@@ -18,13 +18,38 @@ def find_extreme_county(file):
     return County(target_line)
 
 highest_ca_county = find_extreme_county(ca_file)
+# lowest_ca_county = find_extreme_county(ca_file, false)
+highest_wa_county = find_extreme_county(wa_file);
+# lowest_wa_county = find_extreme_county(wa_file, false)
 
-# lowest_ca_county = find_extreme_county(wa_file, false);
-# highest_wa_county = find_extreme_county(ca_file, true);
-# lowest_wa_county = find_extreme_county(wa_file, false);
-#
 
-# find_extreme_county(ca_file)
+print "************"
+print "*CALIFORNIA*"
+print "************"
+print "County with highest percent poverty: " + highest_ca_county.name
+print "Percentage of children in poverty: " + highest_ca_county.pov_percent
+print "Number of children in poverty: " + highest_ca_county.pov_count
+print "Median household income: " + highest_ca_county.med_income
+print "------------"
+# print "County with lowest percent poverty: " + lowest_ca_county.name
+# print "Percentage of children in poverty: " + lowest_ca_county.pov_percent
+# print "Number of children in poverty: " + lowest_ca_county.pov_count
+# print "Median household income: " + lowest_ca_county.med_income
+print "************"
+print "*WASHINGTON*"
+print "************"
+print "County with highest percent poverty: " + highest_wa_county.name
+print "Percentage of children in poverty: " + highest_wa_county.pov_percent
+print "Number of children in poverty: " + highest_wa_county.pov_count
+print "Median household income: " + highest_wa_county.med_income
+print "------------"
+# print "County with lowest percent poverty: " + lowest_wa_county.name
+# print "Percentage of children in poverty: " + lowest_wa_county.pov_percent
+# print "Number of children in poverty: " + lowest_wa_county.pov_count
+# print "Median household income: " + lowest_wa_county.med_income
+print "***************************************************************"
+print ""
+
 
 ca_file.close()
 wa_file.close()
