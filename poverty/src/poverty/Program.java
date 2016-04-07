@@ -27,7 +27,7 @@ public class Program {
 				scan.close();
 				// find and print the line matching the county entered by user
 				String line; 
-				boolean no_county = true;
+				boolean countyFound = false;
 				while (scanner.hasNextLine()) {
 					line = scanner.nextLine();
 					
@@ -37,11 +37,11 @@ public class Program {
 			            System.out.println("Percentage of children in poverty: " + user_county.pov_percent);
 			            System.out.println("Number of children in poverty: " + user_county.pov_count);
 			            System.out.println("Median household income: "+ user_county.med_income);
-			            no_county = false;
+			            countyFound = true;
 			        }
 				}
 			    scanner.close();
-			    if(no_county) {
+			    if(!countyFound) {
 			    	System.out.println("Invalid county for " + state);
 			    }
 			} catch (FileNotFoundException e) {
