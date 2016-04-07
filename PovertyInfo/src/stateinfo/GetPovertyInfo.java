@@ -18,13 +18,31 @@ public class GetPovertyInfo {
 	
 	public static String getMinimumChildPovertyRecord(String state) throws FileNotFoundException {
 		File data = new File(stateFiles.get(state));
-		
 		Scanner scnr = new Scanner(data);
 		
-		String firstLine = scnr.nextLine();
-		
+		scnr.nextLine(); // skip first line
+	
+		String minCountyRecord = null;
+		Double currentMin = null;
+
+		while(scnr.hasNextLine()){
+			
+			String line = scnr.nextLine();
+			
+			if (currentMin == null) {
+				currentMin = Double.parseDouble(line.substring(76, 80));
+				minCountyRecord = line;
+			}
+
+			if (Double.parseDouble(line.substring(76, 80)) < currentMin) {
+				currentMin = Double.parseDouble(line.substring(76, 80));
+				minCountyRecord = line;
+			}
+			
+        }       
+				
 		scnr.close();
-		return firstLine;
+		return minCountyRecord;
 	}
 
 }
