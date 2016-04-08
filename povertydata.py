@@ -38,7 +38,13 @@ class StateData:
         county = max(self.county_data,key=attrgetter('children_percentage'))
         return county.print_data()
 
-
+    def find_county(self, find_county):
+        find_county = find_county.replace(" County", "")
+        for county in self.county_data:
+            county_name = county.county_name.replace(" County", "")
+            if county_name.lower() == find_county.lower():
+                return county.print_data()
+        print "County Not Found"
 
 
 
@@ -65,3 +71,7 @@ state_data = StateData(state, raw_state_data_list)
 #     county.print_data()
 
 state_data.highest_percentage()
+state_data.find_county("KING")
+state_data.find_county("KING County")
+state_data.find_county("king")
+state_data.find_county("King")
