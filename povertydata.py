@@ -40,6 +40,7 @@ class StateData:
 
     def find_county(self, find_county):
         find_county = find_county.replace(" County", "")
+        find_county = find_county.replace(" county", "")
         for county in self.county_data:
             county_name = county.county_name.replace(" County", "")
             if county_name.lower() == find_county.lower():
@@ -51,10 +52,17 @@ class StateData:
             print county.county_name
 
 
+def check_user_input(input):
+    if input.upper() == "QUIT" or input.upper() == "Q":
+        exit()
+    else:
+        return input
 
-print "Welcome to the US Poverty Data Portal"
-print "Enter WA to view poverty data for Washington or OR to view poverty data for Oregon:"
-state = raw_input("> ")
+
+print "\nWelcome to the US Poverty Data Portal"
+print "\nEnter WA to view poverty data for Washington or OR to view poverty data for Oregon.\nEnter quit to exit the program at any time."
+state = check_user_input(raw_input("> "))
+
 state_file_path = None
 
 while state_file_path == None:
@@ -64,15 +72,26 @@ while state_file_path == None:
         state_file_path = "est14_OR.txt"
     else:
         print "Invalid input. Please Enter WA for Washington or OR for Oregon"
-        state = raw_input("> ")
+        state = check_user_input(raw_input("> "))
 
 raw_state_data = open(state_file_path).read()
 raw_state_data_list = raw_state_data.split('\n')
 list_length = len(raw_state_data_list)
 raw_state_data_list = raw_state_data_list[1:list_length - 1]
-
-# print raw_state_data_list[0][193:237].strip()
-
 state_data = StateData(state, raw_state_data_list)
 
-# state_data.print_counties()
+print "STATE POVERTY DATA FOR %s" % state_data.state
+print '\n'
+print "County with highest percentage of childhood poverty:\n"
+state_data.highest_percentage()
+print "\n"
+print "County with the lowest percentage of childhood poverty:\n"
+state_data.lowest_percentage()
+print "\n"
+print "Enter a county name to learn more about a specific county.\nEnter quit to exit the program at any time.\nPress ENTER for a list of all counties"
+while True:
+    county_name = check_user_input(raw_input("> "))
+    if county_name == "":
+        state_data.print_counties()
+    else:
+        state_data.find_county(county_name)
