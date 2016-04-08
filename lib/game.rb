@@ -25,118 +25,139 @@ module PlanetExpress
     end
 
     def do_play_game
-      check
-      while @stable == true
+      while @stable
         prompt
       end
     end
 
     def make_choice
-      check
-      while @stable == true
-        i = gets.chomp.to_i
-        if i == 1
-          steal
-        elsif i == 2
-          drink
-        elsif i == 3
-          account
-        elsif i == 4
-          deliver
-        elsif i == 5
-          hunger
-        end
+      choice = gets.chomp.to_i
+      if choice == 1
+        steal
+      elsif choice == 2
+        drink
+      elsif choice == 3
+        account
+      elsif choice == 4
+        deliver
+      elsif choice == 5
+        hunger
+      else
+        puts "Please make a valid selection"
         prompt
       end
     end
 
     def score
-      b = @bender.horde
-      f = @fry.thirst
-      h = @hermes.receipts
-      l = @leela.work
-      z = @zoidberg.hunger
+      bender_horde = @bender.horde
+      fry_thirst = @fry.thirst
+      hermes_receipts = @hermes.receipts
+      leela_work = @leela.work
+      zoidberg_hunger = @zoidberg.hunger
       puts "Crew Status:"
-      puts "Bender has #{b} items in his horde."
-      puts "Fry has #{f} units of thirst."
-      puts "Hermes has #{h} receipts to enter."
-      puts "Leela has #{l} unfulfilled work orders."
-      puts "Zoidberg has #{z} units of hunger."
-      total_score = b + f + h + l + z
-      puts "This is your total score: #{total_score}"
+      # puts "Bender has #{bender_horde} items in his horde."
+      # puts "Fry has #{fry_thirst} units of thirst."
+      # puts "Hermes has #{hermes_receipts} receipts to enter."
+      # puts "Leela has #{leela_work} unfulfilled work orders."
+      # puts "Zoidberg has #{zoidberg_hunger} units of hunger."
+
+      total_score = bender_horde + fry_thirst + hermes_receipts + leela_work + zoidberg_hunger
+
+      puts "Horde score for Bender (you want this to be high): #{bender_horde}"
+      puts "Thirst score for Fry (you want this to be low): #{fry_thirst}"
+      puts "Receipts score for Hermes (you want this to be high): #{hermes_receipts}"
+      puts "Work Order score for Leela (you want this to be low): #{leela_work}"
+      puts "Hunger score for Zoidberg (you want this to be low): #{zoidberg_hunger}"
+      puts "Total score: #{total_score}"
     end
 
     def drink
-      @fry.thirst -= 10
-      @leela.work += 3
-
-      if @fry.thirst < 0
-        @fry.thirst = 0
-      end
-
-      if @leela.work > 100
-        @leela.work = 100
-      end
-
       check
+      if @fry.thirst <= 0
+        check
+        @fry.thirst = 0
+      else
+        @fry.thirst -= 10
+      end
+
+      if @leela.work <= 99
+        check
+        @leela.work += 3
+      elsif @leela.work >= 100
+          @leela.work = 100
+      end
+
+
       prompt
     end
 
     def deliver
-      @leela.work -= 3
-      @hermes.receipts += 3
-
-      if @leela.work < 0
+      check
+      if @leela.work <= 0
         @leela.work = 0
+      else
+        @leela.work -= 3
       end
 
-      if @hermes.receipts > 100
+      if @hermes.receipts >= 100
         @hermes.receipts = 100
+      else
+        @hermes.receipts += 3
       end
       check
       prompt
     end
 
     def steal
-      @bender.horde += 7
-      @leela.work += 7
-
-      if @leela.work > 100
+      if @leela.work >= 100
         @leela.work = 100
+      else
+        @leela.work += 7
       end
 
-      if @bender.horde > 100
+      if @bender.horde >= 100
         @bender.horde = 100
+      else
+        @bender.horde += 7
       end
       check
       prompt
     end
 
     def hunger
-      @zoidberg.hunger -= 12
-      @leela.work = 5
-
-      if @zoidberg.hunger < 0
+        check
+      if @zoidberg.hunger <= 0
         @zoidberg.hunger = 0
+      else
+        @zoidberg.hunger -= 12
       end
 
-      if @leela.work > 100
+      if @leela.work <= 99
+        check
+        @leela.work += 5
+      elsif @leela.work >= 100
         @leela.work = 100
       end
-      check
+
       prompt
     end
 
     def account
-      @hermes.receipts -= 9
-      @bender.horde -= 9
-
+      check
       if @hermes.receipts < 0
+        check
         @hermes.receipts = 0
+      else
+        @hermes.receipts -= 9
       end
 
-      if @bender.horde < 0
-        @bender.horde == 0
+      if @bender.horde <= 0
+        check
+        @bender.horde -= 9
+      elsif @bender.horde < 0
+        @bender.horde = 0
+      else
+
       end
       check
       prompt
@@ -158,17 +179,12 @@ module PlanetExpress
     end
 
     def check
-      if @fry.thirst > 90 || @leela.work > 90 || @bender.horde < 10 || @zoidberg.hunger > 90 || @hermes.receipts < 10
+      if ((@fry.thirst > 90 && @fry.thirst < 99) || (@leela.work > 90 && @leela.work < 99) || (@bender.horde < 10 && @bender.horde > 0) || (@zoidberg.hunger > 90 && @zoidberg.hunger < 99) || (@hermes.receipts < 10 && @hermes.receipts > 0))
         puts "Your crew is close to failure"
         prompt
-        make_choice
-      end
-
-      if @fry.thirst == 100 || @leela.work == 100 || @bender.horde == 0 || @zoidberg.hunger == 10 || @hermes.receipts == 0
+      elsif @fry.thirst == 100 || @leela.work == 100 || @bender.horde == 0 || @zoidberg.hunger == 10 || @hermes.receipts == 0
         puts "Your crew is done for"
         @stable = false
-        prompt
-        make_choice
       end
     end
 
