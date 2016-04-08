@@ -1,6 +1,5 @@
-# from sys import argv
-#
-# script, filename = argv
+from operator import attrgetter
+
 
 class CountyData:
     def __init__(self, children_count, children_percentage, median_income, county_name):
@@ -31,6 +30,14 @@ class StateData:
             all_county_data.append(county_data)
         return all_county_data
 
+    def lowest_percentage(self):
+        county = min(self.county_data,key=attrgetter('children_percentage'))
+        return county.print_data()
+
+    def highest_percentage(self):
+        county = max(self.county_data,key=attrgetter('children_percentage'))
+        return county.print_data()
+
 
 
 
@@ -54,5 +61,7 @@ raw_state_data_list = raw_state_data_list[1:list_length - 1]
 # print raw_state_data_list[0][193:237].strip()
 
 state_data = StateData(state, raw_state_data_list)
-for county in state_data.county_data:
-    county.print_data()
+# for county in state_data.county_data:
+#     county.print_data()
+
+state_data.highest_percentage()
