@@ -46,18 +46,25 @@ class StateData:
                 return county.print_data()
         print "County Not Found"
 
+    def print_counties(self):
+        for county in self.county_data:
+            print county.county_name
+
 
 
 print "Welcome to the US Poverty Data Portal"
 print "Enter WA to view poverty data for Washington or OR to view poverty data for Oregon:"
 state = raw_input("> ")
+state_file_path = None
 
-if state == "WA":
-    state_file_path = "est14_WA.txt"
-elif state == "OR":
-    state_file_path = "est14_OR.txt"
-else:
-    print "Invalid input"
+while state_file_path == None:
+    if state == "WA":
+        state_file_path = "est14_WA.txt"
+    elif state == "OR":
+        state_file_path = "est14_OR.txt"
+    else:
+        print "Invalid input. Please Enter WA for Washington or OR for Oregon"
+        state = raw_input("> ")
 
 raw_state_data = open(state_file_path).read()
 raw_state_data_list = raw_state_data.split('\n')
@@ -67,11 +74,5 @@ raw_state_data_list = raw_state_data_list[1:list_length - 1]
 # print raw_state_data_list[0][193:237].strip()
 
 state_data = StateData(state, raw_state_data_list)
-# for county in state_data.county_data:
-#     county.print_data()
 
-state_data.highest_percentage()
-state_data.find_county("KING")
-state_data.find_county("KING County")
-state_data.find_county("king")
-state_data.find_county("King")
+# state_data.print_counties()
