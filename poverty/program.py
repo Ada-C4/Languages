@@ -73,13 +73,15 @@ print "Number of children in poverty: " + lowest_wa_county.pov_count
 print "Median household income: " + lowest_wa_county.med_income
 print "***************************************************************"
 print ""
-state = raw_input("Enter 'CA' for California, 'WA' for Washington, or 'q' to quit: ").upper()
-if (state == "WA"):
-    file_name = "washington.txt"
-elif (state == "CA"):
-    file_name = "california.txt"
-elif (state == "Q"):
-    print "BYE."
-    quit()
+file_name = None
+while (file_name is None):
+    state = raw_input("Enter 'CA' for California, 'WA' for Washington, or 'q' to quit: ").upper()
+    if (state == "WA"):
+        file_name = "washington.txt"
+    elif (state == "CA"):
+        file_name = "california.txt"
+    elif (state == "Q"):
+        print "BYE."
+        quit()
 
 print_county(file_name)
