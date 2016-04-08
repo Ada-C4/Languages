@@ -55,3 +55,4 @@ print "Number of children in poverty: " + lowest_wa_county.pov_count
 print "Median household income: " + lowest_wa_county.med_income
 print "***************************************************************"
 print ""
+state = raw_input("Enter 'CA' for California, 'WA' for Washington, or 'q' to quit: ").upper()
