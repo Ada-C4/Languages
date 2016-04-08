@@ -24,19 +24,23 @@ def find_extreme_county(file_name, highest):
     file.close()
     return County(target_line)
 
-def print_county(file_name, user_county):
-    file = open(file_name)
+def print_county(file_name):
     county_found = False
-    for line in file:
-        if (user_county in line.lower()):
-            county = County(line)
-            county_found = True
-            print "County: " + county.name
-            print "Percentage of children in poverty: " + county.pov_percent
-            print "Number of children in poverty: " + county.pov_count
-            print "Median household income: " + county.med_income
-    file.close()
-    return county_found
+    while (not county_found):
+        user_county = raw_input("Enter a county in " + state + " or 'q' to quit: ").lower()
+        if (user_county == "q"):
+            print "BYE."
+            quit()
+        file = open(file_name)
+        for line in file:
+            if (user_county in line.lower()):
+                county = County(line)
+                county_found = True
+                print "County: " + county.name
+                print "Percentage of children in poverty: " + county.pov_percent
+                print "Number of children in poverty: " + county.pov_count
+                print "Median household income: " + county.med_income
+        file.close()
 
 highest_ca_county = find_extreme_county(ca_file_name, True)
 lowest_ca_county = find_extreme_county(ca_file_name, False)
@@ -78,9 +82,4 @@ elif (state == "Q"):
     print "BYE."
     quit()
 
-user_county = raw_input("Enter a county in " + state + " or 'q' to quit: ").lower()
-if (user_county == "q"):
-    print "BYE."
-    quit()
-
-success = print_county(file_name, user_county)
+print_county(file_name)
