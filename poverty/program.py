@@ -24,6 +24,20 @@ def find_extreme_county(file_name, highest):
     file.close()
     return County(target_line)
 
+def print_county(file_name, user_county):
+    file = open(file_name)
+    county_found = False
+    for line in file:
+        if (user_county in line.lower()):
+            county = County(line)
+            county_found = True
+            print "County: " + county.name
+            print "Percentage of children in poverty: " + county.pov_percent
+            print "Number of children in poverty: " + county.pov_count
+            print "Median household income: " + county.med_income
+    file.close()
+    return county_found
+
 highest_ca_county = find_extreme_county(ca_file_name, True)
 lowest_ca_county = find_extreme_county(ca_file_name, False)
 highest_wa_county = find_extreme_county(wa_file_name, True);
@@ -57,11 +71,16 @@ print "***************************************************************"
 print ""
 state = raw_input("Enter 'CA' for California, 'WA' for Washington, or 'q' to quit: ").upper()
 if (state == "WA"):
-    wa_file_name = "washington.txt"
+    file_name = "washington.txt"
 elif (state == "CA"):
-    ca_file_name = "california.txt"
+    file_name = "california.txt"
 elif (state == "Q"):
     print "BYE."
     quit()
 
-county = raw_input("Enter a county in " + state + " or 'q' to quit: ")
+user_county = raw_input("Enter a county in " + state + " or 'q' to quit: ").lower()
+if (user_county == "q"):
+    print "BYE."
+    quit()
+
+success = print_county(file_name, user_county)
