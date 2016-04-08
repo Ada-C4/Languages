@@ -56,3 +56,10 @@ print "Median household income: " + lowest_wa_county.med_income
 print "***************************************************************"
 print ""
 state = raw_input("Enter 'CA' for California, 'WA' for Washington, or 'q' to quit: ").upper()
+if (state == "WA"):
+    wa_file_name = "washington.txt"
+elif (state == "CA"):
+    ca_file_name = "california.txt"
+elif (state == "Q"):
+    print "BYE."
+    quit()
