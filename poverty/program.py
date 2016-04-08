@@ -63,3 +63,5 @@ elif (state == "CA"):
 elif (state == "Q"):
     print "BYE."
     quit()
+
+county = raw_input("Enter a county in " + state + " or 'q' to quit: ")
