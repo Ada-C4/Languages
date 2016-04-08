@@ -5,10 +5,10 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Program {
-	public static void main(String[] args) throws FileNotFoundException {	
+	public static void main(String[] args) throws FileNotFoundException {
 		System.out.println("Welcome to the CA/WA Poverty Educator!");
         System.out.println();
-        
+
 		File caFile = new File("california.txt");
 		File waFile = new File("washington.txt");
 
@@ -17,8 +17,8 @@ public class Program {
 		County highestWACounty = findExtremeCounty(waFile, true);
 		County lowestWACounty = findExtremeCounty(waFile, false);
 
-		System.out.println("************");		
-		System.out.println("*CALIFORNIA*");	
+		System.out.println("************");
+		System.out.println("*CALIFORNIA*");
 		System.out.println("************");
 		System.out.print("County with highest % poverty: ");
 		System.out.println(highestCACounty.name);
@@ -31,8 +31,8 @@ public class Program {
         System.out.println("Percentage of children in poverty: " + lowestCACounty.povPercent);
         System.out.println("Number of children in poverty: " + lowestCACounty.povCount);
         System.out.println("Median household income: "+ lowestCACounty.medIncome);
-		System.out.println("************");		
-		System.out.println("*WASHINGTON*");	
+		System.out.println("************");
+		System.out.println("*WASHINGTON*");
 		System.out.println("************");
 		System.out.print("County with highest % poverty: ");
 		System.out.println(highestWACounty.name);
@@ -49,7 +49,7 @@ public class Program {
         System.out.println();
 		Scanner scanInput = new Scanner(System.in);
 
-		File file = null; 
+		File file = null;
 		String state = null;
 		while(file == null) {
 			System.out.print("Enter 'CA' for California, 'WA' for Washington, or 'q' to quit: ");
@@ -65,7 +65,7 @@ public class Program {
 				return;
 			}
 		}
-		
+
 		boolean countyFound = false;
 		while (!countyFound) {
 			try {
@@ -73,18 +73,18 @@ public class Program {
 				System.out.print("Enter a county in " + state + " or 'q' to quit: ");
 				System.out.println();
 				String county = scanInput.nextLine();
-				if (county.equals("q")) { 
+				if (county.equals("q")) {
 					scanFile.close();
 					System.out.println("BYE.");
-					return; 
+					return;
 				}
-				
-				String line; 
-				
+
+				String line;
+
 				while (scanFile.hasNextLine()) {
 					line = scanFile.nextLine();
-					
-					if(line.toLowerCase().contains(county.toLowerCase())) { 		            
+
+					if(line.toLowerCase().contains(county.toLowerCase())) {
 			            County userCounty = new County(line);
 			            System.out.println("County: " + userCounty.name );
 			            System.out.println("Percentage of children in poverty: " + userCounty.povPercent);
@@ -96,29 +96,29 @@ public class Program {
 				scanFile.close();
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
-			}	
+			}
 		}
-		
-		scanInput.close();	
+
+		scanInput.close();
 	}
-	
-	
+
+
 	public static County findExtremeCounty(File file, boolean highest) throws FileNotFoundException {
-		
+
 		Scanner scanFile = new Scanner(file);
-		String currentLine = scanFile.nextLine(); 
-		String[] currentLineColumns; 
-		Double currentLinePovPercent; 
+		String currentLine = scanFile.nextLine();
+		String[] currentLineColumns;
+		Double currentLinePovPercent;
 		String targetLine = currentLine;
 		String[] targetLineColumns = targetLine.split("\\s+");
 		Double targetPovPercent = Double.parseDouble(targetLineColumns[11]);
-		
-		
+
+
 		while (scanFile.hasNextLine()) {
 			currentLine = scanFile.nextLine();
 			currentLineColumns = currentLine.split("\\s+");
 			currentLinePovPercent = Double.parseDouble(currentLineColumns[11]);
-			
+
 			if (highest) {
 				if (currentLinePovPercent > targetPovPercent) {
 					targetLine = currentLine;

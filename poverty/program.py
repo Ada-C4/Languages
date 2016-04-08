@@ -5,22 +5,27 @@ print ""
 ca_file = open("california.txt")
 wa_file = open("washington.txt")
 
-def find_extreme_county(file):
+def find_extreme_county(file, highest):
     target_line = file.readline()
     target_pov_percent = float(target_line.split()[11])
 
     for line in file:
         line_pov_percent = float(line.split()[11])
-        if (line_pov_percent > target_pov_percent):
-            target_line = line
-            target_pov_percent = line_pov_percent
+        if (highest):
+            if (line_pov_percent > target_pov_percent):
+                target_line = line
+                target_pov_percent = line_pov_percent
+        else:
+            if (line_pov_percent < target_pov_percent):
+                target_line = line
+                target_pov_percent = line_pov_percent
 
     return County(target_line)
 
-highest_ca_county = find_extreme_county(ca_file)
-# lowest_ca_county = find_extreme_county(ca_file, false)
-highest_wa_county = find_extreme_county(wa_file);
-# lowest_wa_county = find_extreme_county(wa_file, false)
+highest_ca_county = find_extreme_county(ca_file, True)
+# lowest_ca_county = find_extreme_county(ca_file, False)
+highest_wa_county = find_extreme_county(wa_file, True);
+# lowest_wa_county = find_extreme_county(wa_file, False)
 
 
 print "************"
